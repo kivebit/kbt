@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBTPay - Merchant Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 30px;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .back-link:hover {
+            background: rgba(99, 102, 241, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 50%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #a5b4fc;
+            font-size: 1.2em;
+        }
+
+        .merchant-input-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .merchant-input-card label {
+            display: block;
+            color: white;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            color: white;
+            font-size: 1em;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .refresh-btn {
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card.blue {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+        }
+
+        .stat-card.green {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        }
+
+        .stat-card.yellow {
+            border-color: rgba(251, 191, 36, 0.3);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+        }
+
+        .stat-card.purple {
+            border-color: rgba(168, 85, 247, 0.3);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        .transactions-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .transactions-header {
+            padding: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .transactions-header h2 {
+            font-size: 2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(99, 102, 241, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 80px 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 80px 20px;
+            color: #ef4444;
+            font-size: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #a5b4fc;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        td {
+            padding: 20px;
+            color: white;
+        }
+
+        .payment-id {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #a5b4fc;
+        }
+
+        .amount {
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .token-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .status-pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .status-failed {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .date-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="header">
+            <h1>Merchant Dashboard</h1>
+            <p>KBTPay Transaction Analytics</p>
+        </div>
+
+        <div class="merchant-input-card">
+            <label>Merchant Address</label>
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="merchantAddress"
+                    value="0xD51618934e7E37bf80Ab40F59642CA98FB3E6317"
+                    placeholder="Enter merchant wallet address"
+                />
+                <button onclick="fetchTransactions()" class="refresh-btn">
+                    🔄 Refresh Data
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-number" id="totalCount">0</div>
+                <div class="stat-label">Total Transactions</div>
+            </div>
+
+            <div class="stat-card green">
+                <div class="stat-number" id="completedCount">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+
+            <div class="stat-card yellow">
+                <div class="stat-number" id="pendingCount">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+
+            <div class="stat-card purple">
+                <div class="stat-number" id="totalVolume">0.0000</div>
+                <div class="stat-label">Total Volume (ETH)</div>
+            </div>
+        </div>
+
+        <div class="transactions-card">
+            <div class="transactions-header">
+                <h2>Recent Transactions</h2>
+            </div>
+            <div id="transactionTable"></div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchTransactions() {
+            const address = document.getElementById('merchantAddress').value;
+            const tableDiv = document.getElementById('transactionTable');
+            
+            tableDiv.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/transactions/merchant/${address}`);
+                const data = await response.json();
+
+                if (data.success && data.data.length > 0) {
+                    updateStats(data.data);
+                    displayTransactions(data.data);
+                } else {
+                    tableDiv.innerHTML = '<div class="no-data">No transactions found for this merchant address</div>';
+                }
+            } catch (error) {
+                tableDiv.innerHTML = '<div class="error-message">Error loading transactions. Please check API connection.</div>';
+                console.error('Error:', error);
+            }
+        }
+
+        function updateStats(transactions) {
+            const completed = transactions.filter(t => t.status === 'COMPLETED').length;
+            const pending = transactions.filter(t => t.status === 'PENDING').length;
+            
+            let totalVolume = 0;
+            transactions.filter(t => t.status === 'COMPLETED').forEach(t => {
+                totalVolume += Number(t.amount || 0);
+            });
+
+            document.getElementById('totalCount').textContent = transactions.length;
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('totalVolume').textContent = (totalVolume / 1e18).toFixed(4);
+        }
+
+        function getTokenSymbol(address) {
+            const addr = address?.toLowerCase();
+            if (addr === '0xea70e6d9579110a965bef06ff01d03216f5ee1f1') return 'USDT';
+            if (addr === '0x27533fef27f07224e746705da19243f89dc36d81') return 'KBT';
+            return 'ETH';
+        }
+
+        function getStatusClass(status) {
+            switch(status) {
+                case 'COMPLETED': return 'status-completed';
+                case 'PENDING': return 'status-pending';
+                case 'FAILED': return 'status-failed';
+                default: return 'status-pending';
+            }
+        }
+
+        function displayTransactions(transactions) {
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Amount</th>
+                            <th>Token</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            transactions.forEach(tx => {
+                const amount = (Number(tx.amount || 0) / 1e18).toFixed(4);
+                const date = new Date(tx.createdAt).toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                html += `
+                    <tr>
+                        <td>
+                            <span class="payment-id">${tx.paymentId || 'N/A'}</span>
+                        </td>
+                        <td>
+                            <span class="amount">${amount}</span>
+                        </td>
+                        <td>
+                            <span class="token-badge">
+                                ${getTokenSymbol(tx.tokenAddress)}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge ${getStatusClass(tx.status)}">
+                                ${tx.status}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="date-text">${date}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById('transactionTable').innerHTML = html;
+        }
+
+        // Load on page load
+        window.onload = fetchTransactions;
+
+        // Auto-refresh every 30 seconds
+        setInterval(fetchTransactions, 30000);
+    </script>
+</body>
+</html>

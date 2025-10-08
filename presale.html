@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBT Presale - Buy KBT Tokens</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: rgba(15, 23, 42, 0.9);
+            border-right: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .sidebar-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 1.5em;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 1.05em;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: white;
+        }
+
+        .sidebar-menu a.active {
+            background: rgba(99, 102, 241, 0.3);
+            color: white;
+            font-weight: 600;
+        }
+
+        .sidebar-icon {
+            font-size: 1.3em;
+        }
+
+        .back-home {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .back-home a {
+            display: block;
+            padding: 12px 16px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            transition: all 0.3s;
+        }
+
+        .back-home a:hover {
+            background: rgba(99, 102, 241, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        .header-text h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .header-text p {
+            color: #94a3b8;
+            font-size: 1.1em;
+        }
+
+        .header-text .price {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .wallet-status {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .wallet-disconnected {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .wallet-connected {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-subtext {
+            color: #64748b;
+            font-size: 0.9em;
+        }
+
+        .progress-section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #10b981 100%);
+            transition: width 0.5s;
+            border-radius: 8px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .referral-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .referral-link-box {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .referral-link-box input {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 12px;
+        }
+
+        .copy-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .referral-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .ref-stat-box {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .ref-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #10b981;
+            margin-bottom: 5px;
+        }
+
+        .ref-stat-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+
+        .leaderboard-table {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .leaderboard-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th {
+            padding: 15px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .leaderboard-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            color: #cbd5e1;
+        }
+
+        .leaderboard-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .rank-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+        }
+
+        .rank-1 {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #0a0e27;
+        }
+
+        .rank-2 {
+            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+            color: #0a0e27;
+        }
+
+        .rank-3 {
+            background: linear-gradient(135deg, #cd7f32 0%, #b87333 100%);
+            color: white;
+        }
+
+        .airdrop-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .task-item {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-info h4 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .task-reward {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .task-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .task-btn.completed {
+            background: rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            cursor: default;
+        }
+
+        .howto-section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .step-item {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .step-item h3 {
+            display: inline-block;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .step-item p {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-left: 55px;
+        }
+
+        .chart-section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .chart-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            color: #a5b4fc;
+        }
+
+        .chart-container {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            height: 320px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .chart-line {
+            fill: none;
+            stroke: url(#lineGradient);
+            stroke-width: 3;
+            stroke-linecap: round;
+            animation: drawLine 2s ease-out forwards;
+        }
+
+        @keyframes drawLine {
+            from { stroke-dashoffset: 1000; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        .chart-point {
+            fill: #10b981;
+            animation: scaleIn 0.5s ease-out backwards;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .chart-label {
+            fill: #94a3b8;
+            font-size: 12px;
+        }
+
+        .chart-value {
+            fill: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .current-stage-marker {
+            fill: #10b981;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; r: 8; }
+            50% { opacity: 0.6; r: 12; }
+        }
+
+        .stages-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .stage-item {
+            background: rgba(99, 102, 241, 0.05);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .stage-item.active {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .stage-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .stage-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .stage-item.active .stage-title {
+            color: #10b981;
+        }
+
+        .stage-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .stage-progress-fill {
+            height: 100%;
+            background: #667eea;
+            transition: width 0.3s;
+        }
+
+        .stage-item.active .stage-progress-fill {
+            background: #10b981;
+        }
+
+        .stage-details {
+            color: #64748b;
+            font-size: 0.9em;
+        }
+
+        .buy-section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .buy-section h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #a5b4fc;
+        }
+
+        .receive-box {
+            background: rgba(16, 185, 129, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .receive-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .receive-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            display: block;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .buy-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .connect-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .connect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .alert.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .alert.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .alert.info {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <div class="sidebar-logo-icon">⚡</div>
+            <h2>KBT</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="#buy-section" class="active" onclick="showSection('buy')"><span class="sidebar-icon">💰</span> Buy KBT</a></li>
+            <li><a href="#referrals-section" onclick="showSection('referrals')"><span class="sidebar-icon">🔗</span> Referrals</a></li>
+            <li><a href="#leaderboard-section" onclick="showSection('leaderboard')"><span class="sidebar-icon">🏆</span> Leaderboard</a></li>
+            <li><a href="#airdrop-section" onclick="showSection('airdrop')"><span class="sidebar-icon">🎁</span> Airdrop</a></li>
+            <li><a href="#howto-section" onclick="showSection('howto')"><span class="sidebar-icon">📖</span> How to Buy</a></li>
+        </ul>
+
+        <div class="back-home">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="header-info">
+                <div class="header-logo">⚡</div>
+                <div class="header-text">
+                    <h1>KBT Token Presale</h1>
+                    <p>Stage <span id="stage-num">1</span> • Price: <span class="price" id="stage-price">0.001 USDT</span></p>
+                </div>
+            </div>
+            <div id="wallet-status" class="wallet-status wallet-disconnected">
+                Not Connected
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Sold</div>
+                <div class="stat-value" id="total-sold">0</div>
+                <div class="stat-subtext">/ 300,000,000 KBT</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">USD Raised</div>
+                <div class="stat-value" id="usd-raised">$0</div>
+                <div class="stat-subtext">Approximate value</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Current Stage</div>
+                <div class="stat-value" id="current-stage-display">Stage 1</div>
+                <div class="stat-subtext">Cap: 60M KBT</div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-header">
+                <span style="color: #94a3b8;">Total Progress</span>
+                <span id="overall-progress" style="color: #667eea; font-weight: bold;">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Buy Section -->
+            <div id="buy-section" class="content-section active">
+                <div class="chart-section">
+                    <h2>Price Chart</h2>
+                    
+                    <div class="chart-container">
+                        <svg class="chart-svg" viewBox="0 0 600 300">
+                            <defs>
+                                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#10b981;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <line x1="80" y1="50" x2="80" y2="250" stroke="rgba(148, 163, 184, 0.2)" stroke-width="1"/>
+                            <line x1="80" y1="250" x2="550" y2="250" stroke="rgba(148, 163, 184, 0.2)" stroke-width="1"/>
+                            
+                            <text x="40" y="60" class="chart-label">$0.006</text>
+                            <text x="40" y="110" class="chart-label">$0.004</text>
+                            <text x="40" y="170" class="chart-label">$0.0025</text>
+                            <text x="40" y="210" class="chart-label">$0.0015</text>
+                            <text x="40" y="255" class="chart-label">$0.001</text>
+                            
+                            <text x="100" y="275" class="chart-label">Stage 1</text>
+                            <text x="280" y="275" class="chart-label">Stage 3</text>
+                            <text x="460" y="275" class="chart-label">Stage 5</text>
+                            
+                            <path id="price-line" class="chart-line" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 120 240 L 220 210 L 320 170 L 420 120 L 520 70"/>
+                            
+                            <circle cx="120" cy="240" r="6" class="chart-point" style="animation-delay: 0.3s"/>
+                            <circle cx="220" cy="210" r="6" class="chart-point" style="animation-delay: 0.6s"/>
+                            <circle cx="320" cy="170" r="6" class="chart-point" style="animation-delay: 0.9s"/>
+                            <circle cx="420" cy="120" r="6" class="chart-point" style="animation-delay: 1.2s"/>
+                            <circle cx="520" cy="70" r="6" class="chart-point current-stage-marker" style="animation-delay: 1.5s"/>
+                            
+                            <text x="120" y="230" class="chart-value" text-anchor="middle">$0.001</text>
+                            <text x="220" y="200" class="chart-value" text-anchor="middle">$0.0015</text>
+                            <text x="320" y="160" class="chart-value" text-anchor="middle">$0.0025</text>
+                            <text x="420" y="110" class="chart-value" text-anchor="middle">$0.004</text>
+                            <text x="520" y="55" class="chart-value" text-anchor="middle" fill="#10b981">$0.006</text>
+                            
+                            <circle cx="520" cy="70" r="20" fill="none" stroke="#10b981" stroke-width="2" opacity="0.3">
+                                <animate attributeName="r" from="20" to="30" dur="2s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
+
+                    <div id="stages-list" class="stages-list"></div>
+                </div>
+            </div>
+
+            <!-- Referrals Section -->
+            <div id="referrals-section" class="content-section">
+                <div class="referral-card">
+                    <h2 style="font-size: 2em; margin-bottom: 15px; color: #a5b4fc;">Referral Program</h2>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">Earn 5% commission on every purchase made through your referral link!</p>
+
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3); margin-bottom: 25px;">
+                        <h3 style="color: #10b981; margin-bottom: 10px;">How it Works</h3>
+                        <ul style="color: #cbd5e1; line-height: 2;">
+                            <li>Share your unique referral link</li>
+                            <li>Friends buy KBT using your link</li>
+                            <li>You earn 5% of their purchase in KBT</li>
+                            <li>Rewards credited instantly after purchase</li>
+                        </ul>
+                    </div>
+
+                    <h3 style="margin-bottom: 15px; color: #a5b4fc;">Your Referral Link</h3>
+                    <div class="referral-link-box">
+                        <input type="text" id="referral-link" value="https://kbt.io/presale?ref=0x8eD2..." readonly />
+                        <button class="copy-btn" onclick="copyReferralLink()">Copy</button>
+                    </div>
+
+                    <div class="referral-stats">
+                        <div class="ref-stat-box">
+                            <div class="ref-stat-value">0</div>
+                            <div class="ref-stat-label">Total Referrals</div>
+                        </div>
+                        <div class="ref-stat-box">
+                            <div class="ref-stat-value">0 KBT</div>
+                            <div class="ref-stat-label">Earned Rewards</div>
+                        </div>
+                        <div class="ref-stat-box">
+                            <div class="ref-stat-value">$0</div>
+                            <div class="ref-stat-label">USD Value</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Section -->
+            <div id="leaderboard-section" class="content-section">
+                <div class="leaderboard-table">
+                    <h2 style="font-size: 2em; margin-bottom: 25px; color: #a5b4fc;">Top Contributors</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Address</th>
+                                <th>KBT Purchased</th>
+                                <th>Referrals</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="rank-badge rank-1">1</span></td>
+                                <td>0x742d...3A4f</td>
+                                <td>1,250,000 KBT</td>
+                                <td>47</td>
+                            </tr>
+                            <tr>
+                                <td><span class="rank-badge rank-2">2</span></td>
+                                <td>0x8B5c...9D2e</td>
+                                <td>980,500 KBT</td>
+                                <td>35</td>
+                            </tr>
+                            <tr>
+                                <td><span class="rank-badge rank-3">3</span></td>
+                                <td>0x3F1a...7C8b</td>
+                                <td>765,200 KBT</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: #94a3b8;">4</span></td>
+                                <td>0x6A2d...4E9f</td>
+                                <td>623,800 KBT</td>
+                                <td>22</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: #94a3b8;">5</span></td>
+                                <td>0x9C7e...2B1a</td>
+                                <td>545,100 KBT</td>
+                                <td>19</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: #94a3b8;">6</span></td>
+                                <td>0x4D8f...6A3c</td>
+                                <td>432,600 KBT</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: #94a3b8;">7</span></td>
+                                <td>0x1E5b...8F2d</td>
+                                <td>389,400 KBT</td>
+                                <td>13</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: #94a3b8;">8</span></td>
+                                <td>0x7B9c...3D4e</td>
+                                <td>312,900 KBT</td>
+                                <td>11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Airdrop Section -->
+            <div id="airdrop-section" class="content-section">
+                <div class="airdrop-card">
+                    <h2 style="font-size: 2em; margin-bottom: 15px; color: #a5b4fc;">KBT Airdrop Tasks</h2>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">Complete tasks to earn bonus KBT tokens!</p>
+
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Follow on Twitter</h4>
+                            <p style="color: #94a3b8; margin-top: 5px;">Follow @KBTToken on Twitter</p>
+                            <div class="task-reward">Reward: 50 KBT</div>
+                        </div>
+                        <button class="task-btn">Complete</button>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Join Telegram</h4>
+                            <p style="color: #94a3b8; margin-top: 5px;">Join our official Telegram group</p>
+                            <div class="task-reward">Reward: 50 KBT</div>
+                        </div>
+                        <button class="task-btn">Complete</button>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Retweet Announcement</h4>
+                            <p style="color: #94a3b8; margin-top: 5px;">Retweet our presale announcement</p>
+                            <div class="task-reward">Reward: 100 KBT</div>
+                        </div>
+                        <button class="task-btn">Complete</button>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Join Discord</h4>
+                            <p style="color: #94a3b8; margin-top: 5px;">Join our Discord community</p>
+                            <div class="task-reward">Reward: 75 KBT</div>
+                        </div>
+                        <button class="task-btn">Complete</button>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Make First Purchase</h4>
+                            <p style="color: #94a3b8; margin-top: 5px;">Buy minimum 10 USDT worth of KBT</p>
+                            <div class="task-reward">Reward: 200 KBT Bonus</div>
+                        </div>
+                        <button class="task-btn">Complete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Buy Section -->
+            <div id="howto-section" class="content-section">
+                <div class="howto-section">
+                    <h2 style="font-size: 2em; margin-bottom: 25px; color: #a5b4fc;">How to Buy KBT</h2>
+
+                    <div class="step-item">
+                        <span class="step-number">1</span>
+                        <h3>Install MetaMask</h3>
+                        <p>Download and install MetaMask browser extension from metamask.io. Create a new wallet or import an existing one.</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">2</span>
+                        <h3>Get Testnet ETH</h3>
+                        <p>Switch to Sepolia testnet in MetaMask. Get free Sepolia ETH from faucets like sepoliafaucet.com for gas fees.</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">3</span>
+                        <h3>Get USDT/USDC</h3>
+                        <p>Acquire Sepolia USDT or USDC tokens. Add token addresses in MetaMask:<br>
+                        USDT: 0xea70e6d9579110a965bEf06ff01d03216F5Ee1F1<br>
+                        USDC: 0xC8b042E62946B3d8B77624c57E32262c4c080d1F</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">4</span>
+                        <h3>Connect Wallet</h3>
+                        <p>Click "Connect Wallet" button on this page. Approve the connection request in MetaMask. Make sure you're on Sepolia network.</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">5</span>
+                        <h3>Enter Amount</h3>
+                        <p>Enter the amount of USDT or USDC you want to spend (minimum 10 USDT). The calculator will show how many KBT tokens you'll receive.</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">6</span>
+                        <h3>Complete Purchase</h3>
+                        <p>Click "Buy KBT" button. You'll need to approve 2 transactions:<br>
+                        1. Token approval transaction<br>
+                        2. Purchase transaction<br>
+                        Your KBT will be available after presale ends.</p>
+                    </div>
+
+                    <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3); margin-top: 25px;">
+                        <h3 style="color: #3b82f6; margin-bottom: 10px;">Need Help?</h3>
+                        <p style="color: #94a3b8;">Join our Telegram support group or email support@kbt.io for assistance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-section">
+                <h2>Price Chart</h2>
+                
+                <div class="chart-container">
+                    <svg class="chart-svg" viewBox="0 0 600 300">
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#10b981;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <line x1="80" y1="50" x2="80" y2="250" stroke="rgba(148, 163, 184, 0.2)" stroke-width="1"/>
+                        <line x1="80" y1="250" x2="550" y2="250" stroke="rgba(148, 163, 184, 0.2)" stroke-width="1"/>
+                        
+                        <text x="40" y="60" class="chart-label">$0.006</text>
+                        <text x="40" y="110" class="chart-label">$0.004</text>
+                        <text x="40" y="170" class="chart-label">$0.0025</text>
+                        <text x="40" y="210" class="chart-label">$0.0015</text>
+                        <text x="40" y="255" class="chart-label">$0.001</text>
+                        
+                        <text x="100" y="275" class="chart-label">Stage 1</text>
+                        <text x="280" y="275" class="chart-label">Stage 3</text>
+                        <text x="460" y="275" class="chart-label">Stage 5</text>
+                        
+                        <path id="price-line" class="chart-line" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 120 240 L 220 210 L 320 170 L 420 120 L 520 70"/>
+                        
+                        <circle cx="120" cy="240" r="6" class="chart-point" style="animation-delay: 0.3s"/>
+                        <circle cx="220" cy="210" r="6" class="chart-point" style="animation-delay: 0.6s"/>
+                        <circle cx="320" cy="170" r="6" class="chart-point" style="animation-delay: 0.9s"/>
+                        <circle cx="420" cy="120" r="6" class="chart-point" style="animation-delay: 1.2s"/>
+                        <circle cx="520" cy="70" r="6" class="chart-point current-stage-marker" style="animation-delay: 1.5s"/>
+                        
+                        <text x="120" y="230" class="chart-value" text-anchor="middle">$0.001</text>
+                        <text x="220" y="200" class="chart-value" text-anchor="middle">$0.0015</text>
+                        <text x="320" y="160" class="chart-value" text-anchor="middle">$0.0025</text>
+                        <text x="420" y="110" class="chart-value" text-anchor="middle">$0.004</text>
+                        <text x="520" y="55" class="chart-value" text-anchor="middle" fill="#10b981">$0.006</text>
+                        
+                        <circle cx="520" cy="70" r="20" fill="none" stroke="#10b981" stroke-width="2" opacity="0.3">
+                            <animate attributeName="r" from="20" to="30" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+
+                <div id="stages-list" class="stages-list"></div>
+            </div>
+
+            <div class="buy-section">
+                <h3>Purchase KBT</h3>
+                
+                <div class="receive-box">
+                    <div class="receive-label">You will receive approximately</div>
+                    <div class="receive-amount" id="receive-amount">0</div>
+                    <div class="receive-label">KBT Tokens</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Enter Amount</label>
+                    <input 
+                        type="number" 
+                        id="buy-amount" 
+                        placeholder="Enter amount" 
+                        min="10"
+                        step="0.01"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Select Currency</label>
+                    <select id="currency-select">
+                        <option value="USDT">USDT</option>
+                        <option value="USDC">USDC</option>
+                    </select>
+                </div>
+
+                <button id="buy-btn" class="buy-btn" style="display: none;" disabled>
+                    Buy KBT
+                </button>
+
+                <button id="connect-wallet-btn" class="connect-btn">
+                    Connect Wallet
+                </button>
+
+                <div id="alert-box" class="alert"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script>
+        const PRESALE_ADDRESS = "0xf71e278443ebb18165a33cf844bd9fde8842b574";
+        const USDT_ADDRESS = "0xea70e6d9579110a965bEf06ff01d03216F5Ee1F1";
+        const USDC_ADDRESS = "0xC8b042E62946B3d8B77624c57E32262c4c080d1F";
+        
+        const STAGE_COUNT = 5;
+        const STAGE_CAP_PER = 60000000;
+        const STAGE_PRICES = [0.001, 0.0015, 0.0025, 0.0040, 0.0060];
+        const TOTAL_CAP = STAGE_CAP_PER * STAGE_COUNT;
+
+        const PRESALE_ABI = [{"inputs":[],"name":"getPresaleInfo","outputs":[{"internalType":"uint256","name":"start","type":"uint256"},{"internalType":"uint256","name":"end","type":"uint256"},{"internalType":"uint256","name":"stage","type":"uint256"},{"internalType":"uint256","name":"tokensSold","type":"uint256"},{"internalType":"uint256","name":"stageCap","type":"uint256"},{"internalType":"uint256","name":"stagePrice","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"usdtAmount","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"buyWithUSDT","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"usdcAmount","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"buyWithUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+        
+        const ERC20_ABI = [{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"amount","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"type":"function"}];
+
+        let provider, signer, userAddress;
+        let currentStage = 0;
+        let soldPerStage = Array(STAGE_COUNT).fill(0);
+
+        document.getElementById('buy-amount').addEventListener('input', updateReceiveAmount);
+        document.getElementById('currency-select').addEventListener('change', updateReceiveAmount);
+        document.getElementById('connect-wallet-btn').addEventListener('click', connectWallet);
+        document.getElementById('buy-btn').addEventListener('click', buyTokens);
+
+        async function connectWallet() {
+            try {
+                if (!window.ethereum) {
+                    showAlert('Please install MetaMask extension', 'error');
+                    return;
+                }
+
+                showAlert('Connecting to MetaMask...', 'info');
+
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                signer = provider.getSigner();
+                userAddress = await signer.getAddress();
+
+                const network = await provider.getNetwork();
+                if (network.chainId !== 11155111) {
+                    showAlert('Please switch to Sepolia testnet', 'error');
+                    return;
+                }
+
+                document.getElementById('wallet-status').textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+                document.getElementById('wallet-status').className = 'wallet-status wallet-connected';
+                document.getElementById('connect-wallet-btn').style.display = 'none';
+                document.getElementById('buy-btn').style.display = 'block';
+                document.getElementById('buy-btn').disabled = false;
+
+                showAlert('Wallet connected successfully!', 'success');
+                await fetchPresaleData();
+            } catch (error) {
+                console.error('Connection error:', error);
+                showAlert('Connection failed: ' + error.message, 'error');
+            }
+        }
+
+        async function fetchPresaleData() {
+            if (!provider) return;
+
+            try {
+                const contract = new ethers.Contract(PRESALE_ADDRESS, PRESALE_ABI, provider);
+                const info = await contract.getPresaleInfo();
+
+                currentStage = parseInt(info[2]);
+                const tokensSold = parseFloat(ethers.utils.formatEther(info[3]));
+
+                soldPerStage = Array(STAGE_COUNT).fill(0);
+                let remaining = tokensSold;
+                for (let i = 0; i < STAGE_COUNT; i++) {
+                    if (remaining <= 0) break;
+                    soldPerStage[i] = Math.min(remaining, STAGE_CAP_PER);
+                    remaining -= STAGE_CAP_PER;
+                }
+
+                updateUI();
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        function updateUI() {
+            const totalSold = soldPerStage.reduce((a, b) => a + b, 0);
+            const usdRaised = soldPerStage.reduce((acc, sold, idx) => acc + sold * STAGE_PRICES[idx], 0);
+            const overallProgress = (totalSold / TOTAL_CAP) * 100;
+
+            document.getElementById('stage-num').textContent = currentStage + 1;
+            document.getElementById('stage-price').textContent = STAGE_PRICES[currentStage] + ' USDT';
+            document.getElementById('total-sold').textContent = totalSold.toLocaleString();
+            document.getElementById('usd-raised').textContent = '$' + usdRaised.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('current-stage-display').textContent = 'Stage ' + (currentStage + 1);
+            document.getElementById('overall-progress').textContent = overallProgress.toFixed(2) + '%';
+            document.getElementById('progress-bar').style.width = Math.min(100, overallProgress) + '%';
+
+            let html = '';
+            for (let i = 0; i < STAGE_COUNT; i++) {
+                const sold = soldPerStage[i];
+                const perc = Math.min(100, (sold / STAGE_CAP_PER) * 100);
+                const isActive = i === currentStage;
+
+                html += `
+                    <div class="stage-item ${isActive ? 'active' : ''}">
+                        <div class="stage-header">
+                            <span class="stage-title">Stage ${i + 1}</span>
+                            <span style="color: #64748b; font-size: 0.9em;">${perc.toFixed(1)}%</span>
+                        </div>
+                        <div class="stage-progress">
+                            <div class="stage-progress-fill" style="width: ${perc}%"></div>
+                        </div>
+                        <div class="stage-details">
+                            Price: <span style="color: #10b981; font-weight: bold;">${STAGE_PRICES[i]} USDT</span> • ${sold.toLocaleString()} / ${STAGE_CAP_PER.toLocaleString()} KBT
+                        </div>
+                    </div>
+                `;
+            }
+            document.getElementById('stages-list').innerHTML = html;
+        }
+
+        function updateReceiveAmount() {
+            const amount = parseFloat(document.getElementById('buy-amount').value) || 0;
+            const price = STAGE_PRICES[currentStage] || STAGE_PRICES[0];
+            const receive = amount / price;
+            document.getElementById('receive-amount').textContent = receive.toLocaleString(undefined, {maximumFractionDigits: 0});
+        }
+
+        async function buyTokens() {
+            const amount = document.getElementById('buy-amount').value;
+            const currency = document.getElementById('currency-select').value;
+
+            if (!amount || parseFloat(amount) < 10) {
+                showAlert('Minimum purchase is 10 USDT', 'error');
+                return;
+            }
+
+            try {
+                document.getElementById('buy-btn').textContent = 'Processing...';
+                document.getElementById('buy-btn').disabled = true;
+
+                const tokenAddress = currency === 'USDT' ? USDT_ADDRESS : USDC_ADDRESS;
+                const buyFn = currency === 'USDT' ? 'buyWithUSDT' : 'buyWithUSDC';
+                const amountWei = ethers.utils.parseEther(amount);
+
+                showAlert(`Step 1/2: Approving ${currency}...`, 'info');
+
+                const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
+                const approveTx = await tokenContract.approve(PRESALE_ADDRESS, amountWei);
+                await approveTx.wait();
+
+                showAlert(`Step 2/2: Buying KBT tokens...`, 'info');
+
+                const presaleContract = new ethers.Contract(PRESALE_ADDRESS, PRESALE_ABI, signer);
+                const buyTx = await presaleContract[buyFn](amountWei, "0x0000000000000000000000000000000000000000");
+                await buyTx.wait();
+
+                showAlert('Purchase successful! Tokens available after presale ends.', 'success');
+                await fetchPresaleData();
+                document.getElementById('buy-amount').value = '';
+                updateReceiveAmount();
+            } catch (error) {
+                console.error('Buy error:', error);
+                showAlert('Purchase failed: ' + (error.reason || error.message), 'error');
+            } finally {
+                document.getElementById('buy-btn').textContent = 'Buy KBT';
+                document.getElementById('buy-btn').disabled = false;
+            }
+        }
+
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alert-box');
+            alertBox.className = `alert ${type}`;
+            alertBox.textContent = message;
+            alertBox.style.display = 'block';
+
+            if (type === 'success' || type === 'error') {
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Auto-refresh every 15 seconds
+        setInterval(() => {
+            if (provider) {
+                fetchPresaleData();
+            }
+        }, 15000);
+
+        // Initial UI update
+        updateUI();
+
+        // Section switching
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            
+            // Remove active from all menu items
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            
+            // Show selected section
+            if (section === 'buy') {
+                document.getElementById('buy-section').classList.add('active');
+                document.querySelector('[onclick*="buy"]').classList.add('active');
+            } else if (section === 'referrals') {
+                document.getElementById('referrals-section').classList.add('active');
+                document.querySelector('[onclick*="referrals"]').classList.add('active');
+                if (userAddress) {
+                    document.getElementById('referral-link').value = `https://kbt.io/presale?ref=${userAddress}`;
+                }
+            } else if (section === 'leaderboard') {
+                document.getElementById('leaderboard-section').classList.add('active');
+                document.querySelector('[onclick*="leaderboard"]').classList.add('active');
+            } else if (section === 'airdrop') {
+                document.getElementById('airdrop-section').classList.add('active');
+                document.querySelector('[onclick*="airdrop"]').classList.add('active');
+            } else if (section === 'howto') {
+                document.getElementById('howto-section').classList.add('active');
+                document.querySelector('[onclick*="howto"]').classList.add('active');
+            }
+        }
+
+        function copyReferralLink() {
+            const input = document.getElementById('referral-link');
+            input.select();
+            document.execCommand('copy');
+            
+            const btn = event.target;
+            btn.textContent = 'Copied!';
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

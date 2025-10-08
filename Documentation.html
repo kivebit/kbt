@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBT Developer Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBT Developer Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.9);
+            border-right: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: #667eea;
+            margin: 30px 0 15px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 1.2em;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #a5b4fc;
+        }
+
+        .section h3 {
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+            color: #94a3b8;
+        }
+
+        .section p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .code-block code {
+            color: #10b981;
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .success-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        th {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+        }
+
+        td {
+            color: #cbd5e1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .badge-primary {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="index.html" style="background: rgba(99, 102, 241, 0.2); margin-bottom: 20px;">← Home</a>
+        
+        <h3>Getting Started</h3>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#quick-start">Quick Start</a></li>
+            <li><a href="#installation">Installation</a></li>
+        </ul>
+
+        <h3>Smart Contracts</h3>
+        <ul>
+            <li><a href="#token">KBT Token</a></li>
+            <li><a href="#presale">Presale Contract</a></li>
+            <li><a href="#kbtpay">KBTPay Escrow</a></li>
+        </ul>
+
+        <h3>Integration</h3>
+        <ul>
+            <li><a href="#web3">Web3 Integration</a></li>
+            <li><a href="#api">API Reference</a></li>
+            <li><a href="#sdk">SDK Usage</a></li>
+        </ul>
+
+        <h3>Products</h3>
+        <ul>
+            <li><a href="#dex">DEX Integration</a></li>
+            <li><a href="#nft">NFT Marketplace</a></li>
+            <li><a href="#launchpad">Launchpad</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+
+        <div class="header">
+            <h1>Developer Documentation</h1>
+            <p>Build on the KBT Ecosystem - Complete technical guide for developers</p>
+        </div>
+
+        <div id="introduction" class="section">
+            <h2>Introduction</h2>
+            <p>Welcome to the KBT Developer Documentation. This guide will help you integrate with KBT smart contracts, build dApps on our ecosystem, and leverage our APIs for your projects.</p>
+            
+            <div class="info-box">
+                <strong>Version:</strong> 1.0.0<br>
+                <strong>Network:</strong> Sepolia Testnet (Ethereum Mainnet coming Q2 2025)<br>
+                <strong>Support:</strong> developers@kbt.io
+            </div>
+
+            <h3>Contract Addresses (Sepolia)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Contract</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>KBT Token</td>
+                        <td><code>0x27533fEF27f07224e746705Da19243f89Dc36D81</code></td>
+                        <td><span class="badge badge-success">Live</span></td>
+                    </tr>
+                    <tr>
+                        <td>Presale</td>
+                        <td><code>0xF71e278443EBb18165a33Cf844bD9fDe8842B574</code></td>
+                        <td><span class="badge badge-success">Live</span></td>
+                    </tr>
+                    <tr>
+                        <td>KBTPay Escrow</td>
+                        <td><code>0xe5Af7561abAc07D28794B8d361f883928279Cd70</code></td>
+                        <td><span class="badge badge-success">Live</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="quick-start" class="section">
+            <h2>Quick Start</h2>
+            
+            <h3>Install Dependencies</h3>
+            <div class="code-block">
+                <pre><code>npm install ethers wagmi viem @rainbow-me/rainbowkit</code></pre>
+            </div>
+
+            <h3>Connect to KBT Token</h3>
+            <div class="code-block">
+                <pre>
+import { ethers } from 'ethers';
+
+const KBT_ADDRESS = "0x27533fEF27f07224e746705Da19243f89Dc36D81";
+const KBT_ABI = [
+  "function balanceOf(address) view returns (uint256)",
+  "function transfer(address to, uint256 amount) returns (bool)",
+  "function approve(address spender, uint256 amount) returns (bool)"
+];
+
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const signer = provider.getSigner();
+const kbtContract = new ethers.Contract(KBT_ADDRESS, KBT_ABI, signer);
+
+// Get balance
+const balance = await kbtContract.balanceOf(address);
+console.log("KBT Balance:", ethers.utils.formatEther(balance));
+                </pre>
+            </div>
+        </div>
+
+        <div id="token" class="section">
+            <h2>KBT Token Contract</h2>
+            
+            <h3>Token Details</h3>
+            <table>
+                <tr>
+                    <td><strong>Name:</strong></td>
+                    <td>KBT Token</td>
+                </tr>
+                <tr>
+                    <td><strong>Symbol:</strong></td>
+                    <td>KBT</td>
+                </tr>
+                <tr>
+                    <td><strong>Decimals:</strong></td>
+                    <td>18</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Supply:</strong></td>
+                    <td>1,500,000,000 KBT</td>
+                </tr>
+                <tr>
+                    <td><strong>Standard:</strong></td>
+                    <td>ERC-20</td>
+                </tr>
+            </table>
+
+            <h3>Read Functions</h3>
+            <div class="code-block">
+                <pre>
+// Get token balance
+function balanceOf(address account) external view returns (uint256)
+
+// Get total supply
+function totalSupply() external view returns (uint256)
+
+// Check allowance
+function allowance(address owner, address spender) external view returns (uint256)
+                </pre>
+            </div>
+
+            <h3>Write Functions</h3>
+            <div class="code-block">
+                <pre>
+// Transfer tokens
+function transfer(address to, uint256 amount) external returns (bool)
+
+// Approve spending
+function approve(address spender, uint256 amount) external returns (bool)
+
+// Transfer from
+function transferFrom(address from, address to, uint256 amount) external returns (bool)
+                </pre>
+            </div>
+        </div>
+
+        <div id="presale" class="section">
+            <h2>Presale Contract</h2>
+            
+            <h3>Buy with USDT</h3>
+            <div class="code-block">
+                <pre>
+const PRESALE_ADDRESS = "0xF71e278443EBb18165a33Cf844bD9fDe8842B574";
+const USDT_ADDRESS = "0xea70e6d9579110a965bEf06ff01d03216F5Ee1F1";
+
+// 1. Approve USDT
+const usdtContract = new ethers.Contract(USDT_ADDRESS, ERC20_ABI, signer);
+const amount = ethers.utils.parseEther("100"); // 100 USDT
+await usdtContract.approve(PRESALE_ADDRESS, amount);
+
+// 2. Buy KBT
+const presaleContract = new ethers.Contract(PRESALE_ADDRESS, PRESALE_ABI, signer);
+const referrer = "0x0000000000000000000000000000000000000000"; // No referrer
+await presaleContract.buyWithUSDT(amount, referrer);
+                </pre>
+            </div>
+
+            <div class="warning-box">
+                <strong>Important:</strong> Always approve tokens before calling buy functions. The referrer address can be zero address if no referral.
+            </div>
+
+            <h3>Get Presale Info</h3>
+            <div class="code-block">
+                <pre>
+const info = await presaleContract.getPresaleInfo();
+
+console.log("Presale Start:", info.start);
+console.log("Current Stage:", info.stage);
+console.log("Tokens Sold:", ethers.utils.formatEther(info.tokensSold));
+console.log("Stage Price:", ethers.utils.formatEther(info.stagePrice));
+                </pre>
+            </div>
+        </div>
+
+        <div id="kbtpay" class="section">
+            <h2>KBTPay Integration</h2>
+            
+            <h3>Accept Payments</h3>
+            <p>Integrate KBTPay to accept crypto payments in your application:</p>
+
+            <div class="code-block">
+                <pre>
+// Create payment intent
+const response = await fetch('http://localhost:3000/api/transactions/create-intent', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    merchantAddress: "0xYourMerchantAddress",
+    customerAddress: userAddress,
+    amount: ethers.utils.parseEther("1.0").toString(),
+    tokenAddress: "0x0000000000000000000000000000000000000000", // ETH
+    chainId: 11155111
+  })
+});
+
+const { paymentId } = await response.json();
+
+// Send transaction
+const tx = await signer.sendTransaction({
+  to: merchantAddress,
+  value: ethers.utils.parseEther("1.0")
+});
+
+// Update transaction hash
+await fetch('http://localhost:3000/api/transactions/update-hash', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    paymentId: paymentId,
+    transactionHash: tx.hash
+  })
+});
+                </pre>
+            </div>
+
+            <h3>Fee Structure</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Fee</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Payment Processing</td>
+                        <td>1.8%</td>
+                        <td>Industry-leading low fees</td>
+                    </tr>
+                    <tr>
+                        <td>First Month</td>
+                        <td>0%</td>
+                        <td>Free for new merchants</td>
+                    </tr>
+                    <tr>
+                        <td>KBT Cashback</td>
+                        <td>1%</td>
+                        <td>Paid in KBT tokens</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="web3" class="section">
+            <h2>Web3 Integration</h2>
+            
+            <h3>Using Wagmi (React)</h3>
+            <div class="code-block">
+                <pre>
+import { useAccount, useWriteContract, usePublicClient } from 'wagmi';
+
+function BuyKBT() {
+  const { address } = useAccount();
+  const { writeContractAsync } = useWriteContract();
+  const publicClient = usePublicClient();
+
+  async function buyTokens() {
+    // Approve
+    const approveTx = await writeContractAsync({
+      address: USDT_ADDRESS,
+      abi: ERC20_ABI,
+      functionName: 'approve',
+      args: [PRESALE_ADDRESS, amount]
+    });
+    await publicClient.waitForTransactionReceipt({ hash: approveTx });
+
+    // Buy
+    const buyTx = await writeContractAsync({
+      address: PRESALE_ADDRESS,
+      abi: PRESALE_ABI,
+      functionName: 'buyWithUSDT',
+      args: [amount, "0x0000000000000000000000000000000000000000"]
+    });
+    await publicClient.waitForTransactionReceipt({ hash: buyTx });
+  }
+
+  return <button onClick={buyTokens}>Buy KBT</button>;
+}
+                </pre>
+            </div>
+
+            <div class="success-box">
+                <strong>Tip:</strong> Use Wagmi hooks for better React integration and automatic state management.
+            </div>
+        </div>
+
+        <div id="api" class="section">
+            <h2>API Reference</h2>
+            
+            <h3>Base URL</h3>
+            <div class="code-block">
+                <pre>http://localhost:3000/api</pre>
+            </div>
+
+            <h3>Endpoints</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/transactions/create-intent</td>
+                        <td>POST</td>
+                        <td>Create payment intent</td>
+                    </tr>
+                    <tr>
+                        <td>/transactions/update-hash</td>
+                        <td>POST</td>
+                        <td>Update transaction hash</td>
+                    </tr>
+                    <tr>
+                        <td>/transactions/merchant/:address</td>
+                        <td>GET</td>
+                        <td>Get merchant transactions</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Request</h3>
+            <div class="code-block">
+                <pre>
+POST /api/transactions/create-intent
+Content-Type: application/json
+
+{
+  "merchantAddress": "0x...",
+  "customerAddress": "0x...",
+  "amount": "1000000000000000000",
+  "tokenAddress": "0x0000000000000000000000000000000000000000",
+  "chainId": 11155111
+}
+                </pre>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center; padding: 60px 40px;">
+            <h2>Need Help?</h2>
+            <p style="margin: 20px 0;">Join our developer community for support</p>
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+                <a href="#" class="back-btn" style="text-decoration: none;">Discord Community</a>
+                <a href="#" class="back-btn" style="text-decoration: none;">GitHub</a>
+                <a href="#" class="back-btn" style="text-decoration: none;">Telegram</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
