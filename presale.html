@@ -531,7 +531,7 @@
         }
 
         .stage-item {
-            background: rgba(99, 102, 241, 0.05);
+            background: rgba(15, 23, 42, 0.8);
             padding: 18px;
             border-radius: 12px;
             border: 1px solid rgba(99, 102, 241, 0.2);
@@ -629,7 +629,7 @@
         input, select {
             width: 100%;
             padding: 15px;
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 10px;
             color: white;
@@ -842,42 +842,78 @@
 
                     <div id="stages-list" class="stages-list"></div>
                 </div>
+
+                <div class="buy-section">
+                    <h3>Purchase KBT</h3>
+                    
+                    <div class="receive-box">
+                        <div class="receive-label">You will receive approximately</div>
+                        <div class="receive-amount" id="receive-amount">0</div>
+                        <div class="receive-label">KBT Tokens</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Enter Amount</label>
+                        <input 
+                            type="number" 
+                            id="buy-amount" 
+                            placeholder="Enter amount" 
+                            min="10"
+                            step="0.01"
+                        />
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Select Currency</label>
+                        <select id="currency-select">
+                            <option value="USDT">USDT</option>
+                            <option value="USDC">USDC</option>
+                        </select>
+                    </div>
+
+                    <button id="buy-btn" class="buy-btn" style="display: none;" disabled>
+                        Buy KBT (Vested over 6-12 months)
+                    </button>
+
+                    <button id="connect-wallet-btn" class="connect-btn">
+                        Connect Wallet
+                    </button>
+
+                    <div id="alert-box" class="alert"></div>
+                    
+                    <div style="margin-top: 20px; background: rgba(236, 72, 153, 0.1); padding: 15px; border-radius: 10px; border: 1px solid rgba(236, 72, 153, 0.3);">
+                        <strong style="color: #ec4899;">Vesting Info:</strong> Tokens are locked upon purchase and vest linearly over 6-12 months. Use the claim button below to claim vested tokens when available.
+                    </div>
+                    
+                    <button id="claim-btn" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); border: none; border-radius: 10px; color: white; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s; margin-top: 15px;" disabled>
+                        Claim Vested Tokens (Coming Soon)
+                    </button>
+                </div>
             </div>
 
             <!-- Referrals Section -->
             <div id="referrals-section" class="content-section">
                 <div class="referral-card">
                     <h2 style="font-size: 2em; margin-bottom: 15px; color: #a5b4fc;">Referral Program</h2>
-                    <p style="color: #94a3b8; margin-bottom: 25px;">Earn 5% commission on every purchase made through your referral link!</p>
+                    <p style="color: #94a3b8; margin-bottom: 25px;">Earn 5% referral rewards in KBT tokens!</p>
 
-                    <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3); margin-bottom: 25px;">
-                        <h3 style="color: #10b981; margin-bottom: 10px;">How it Works</h3>
-                        <ul style="color: #cbd5e1; line-height: 2;">
-                            <li>Share your unique referral link</li>
-                            <li>Friends buy KBT using your link</li>
-                            <li>You earn 5% of their purchase in KBT</li>
-                            <li>Rewards credited instantly after purchase</li>
-                        </ul>
-                    </div>
-
-                    <h3 style="margin-bottom: 15px; color: #a5b4fc;">Your Referral Link</h3>
                     <div class="referral-link-box">
-                        <input type="text" id="referral-link" value="https://kbt.io/presale?ref=0x8eD2..." readonly />
+                        <input type="text" id="referral-link" value="Connect wallet to get link" readonly />
                         <button class="copy-btn" onclick="copyReferralLink()">Copy</button>
                     </div>
 
                     <div class="referral-stats">
                         <div class="ref-stat-box">
                             <div class="ref-stat-value">0</div>
-                            <div class="ref-stat-label">Total Referrals</div>
+                            <div class="ref-stat-label">Referrals</div>
                         </div>
                         <div class="ref-stat-box">
                             <div class="ref-stat-value">0 KBT</div>
-                            <div class="ref-stat-label">Earned Rewards</div>
+                            <div class="ref-stat-label">Earned</div>
                         </div>
                         <div class="ref-stat-box">
-                            <div class="ref-stat-value">$0</div>
-                            <div class="ref-stat-label">USD Value</div>
+                            <div class="ref-stat-value">0 KBT</div>
+                            <div class="ref-stat-label">Pending</div>
                         </div>
                     </div>
                 </div>
@@ -886,13 +922,13 @@
             <!-- Leaderboard Section -->
             <div id="leaderboard-section" class="content-section">
                 <div class="leaderboard-table">
-                    <h2 style="font-size: 2em; margin-bottom: 25px; color: #a5b4fc;">Top Contributors</h2>
+                    <h2 style="font-size: 2em; margin-bottom: 20px; color: #a5b4fc;">Referral Leaderboard</h2>
                     <table>
                         <thead>
                             <tr>
                                 <th>Rank</th>
                                 <th>Address</th>
-                                <th>KBT Purchased</th>
+                                <th>Volume</th>
                                 <th>Referrals</th>
                             </tr>
                         </thead>
@@ -1055,94 +1091,6 @@
                     </div>
                 </div>
             </div>
-            <div class="chart-section">
-                <h2>Price Chart</h2>
-                
-                <div class="chart-container">
-                    <svg class="chart-svg" viewBox="0 0 600 300">
-                        <defs>
-                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#10b981;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        
-                        <line x1="80" y1="50" x2="80" y2="250" stroke="rgba(148, 163, 184, 0.2)" stroke-width="1"/>
-                        <line x1="80" y1="250" x2="550" y2="250" stroke="rgba(148, 163, 184, 0.2)" stroke-width="1"/>
-                        
-                        <text x="40" y="60" class="chart-label">$0.006</text>
-                        <text x="40" y="110" class="chart-label">$0.004</text>
-                        <text x="40" y="170" class="chart-label">$0.0025</text>
-                        <text x="40" y="210" class="chart-label">$0.0015</text>
-                        <text x="40" y="255" class="chart-label">$0.001</text>
-                        
-                        <text x="100" y="275" class="chart-label">Stage 1</text>
-                        <text x="280" y="275" class="chart-label">Stage 3</text>
-                        <text x="460" y="275" class="chart-label">Stage 5</text>
-                        
-                        <path id="price-line" class="chart-line" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 120 240 L 220 210 L 320 170 L 420 120 L 520 70"/>
-                        
-                        <circle cx="120" cy="240" r="6" class="chart-point" style="animation-delay: 0.3s"/>
-                        <circle cx="220" cy="210" r="6" class="chart-point" style="animation-delay: 0.6s"/>
-                        <circle cx="320" cy="170" r="6" class="chart-point" style="animation-delay: 0.9s"/>
-                        <circle cx="420" cy="120" r="6" class="chart-point" style="animation-delay: 1.2s"/>
-                        <circle cx="520" cy="70" r="6" class="chart-point current-stage-marker" style="animation-delay: 1.5s"/>
-                        
-                        <text x="120" y="230" class="chart-value" text-anchor="middle">$0.001</text>
-                        <text x="220" y="200" class="chart-value" text-anchor="middle">$0.0015</text>
-                        <text x="320" y="160" class="chart-value" text-anchor="middle">$0.0025</text>
-                        <text x="420" y="110" class="chart-value" text-anchor="middle">$0.004</text>
-                        <text x="520" y="55" class="chart-value" text-anchor="middle" fill="#10b981">$0.006</text>
-                        
-                        <circle cx="520" cy="70" r="20" fill="none" stroke="#10b981" stroke-width="2" opacity="0.3">
-                            <animate attributeName="r" from="20" to="30" dur="2s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
-                        </circle>
-                    </svg>
-                </div>
-
-                <div id="stages-list" class="stages-list"></div>
-            </div>
-
-            <div class="buy-section">
-                <h3>Purchase KBT</h3>
-                
-                <div class="receive-box">
-                    <div class="receive-label">You will receive approximately</div>
-                    <div class="receive-amount" id="receive-amount">0</div>
-                    <div class="receive-label">KBT Tokens</div>
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label">Enter Amount</label>
-                    <input 
-                        type="number" 
-                        id="buy-amount" 
-                        placeholder="Enter amount" 
-                        min="10"
-                        step="0.01"
-                    />
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label">Select Currency</label>
-                    <select id="currency-select">
-                        <option value="USDT">USDT</option>
-                        <option value="USDC">USDC</option>
-                    </select>
-                </div>
-
-                <button id="buy-btn" class="buy-btn" style="display: none;" disabled>
-                    Buy KBT
-                </button>
-
-                <button id="connect-wallet-btn" class="connect-btn">
-                    Connect Wallet
-                </button>
-
-                <div id="alert-box" class="alert"></div>
-            </div>
         </div>
     </div>
 
@@ -1159,7 +1107,7 @@
 
         const PRESALE_ABI = [{"inputs":[],"name":"getPresaleInfo","outputs":[{"internalType":"uint256","name":"start","type":"uint256"},{"internalType":"uint256","name":"end","type":"uint256"},{"internalType":"uint256","name":"stage","type":"uint256"},{"internalType":"uint256","name":"tokensSold","type":"uint256"},{"internalType":"uint256","name":"stageCap","type":"uint256"},{"internalType":"uint256","name":"stagePrice","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"usdtAmount","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"buyWithUSDT","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"usdcAmount","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"buyWithUSDC","outputs":[],"stateMutability":"nonpayable","type":"function"}];
         
-        const ERC20_ABI = [{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"amount","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"type":"function"}];
+        const ERC20_ABI = [{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"amount","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"type":"function"},{"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"type":"function"}];
 
         let provider, signer, userAddress;
         let currentStage = 0;
@@ -1169,6 +1117,7 @@
         document.getElementById('currency-select').addEventListener('change', updateReceiveAmount);
         document.getElementById('connect-wallet-btn').addEventListener('click', connectWallet);
         document.getElementById('buy-btn').addEventListener('click', buyTokens);
+        // document.getElementById('claim-btn').addEventListener('click', claimTokens); // Placeholder for future
 
         async function connectWallet() {
             try {
@@ -1234,7 +1183,7 @@
             const overallProgress = (totalSold / TOTAL_CAP) * 100;
 
             document.getElementById('stage-num').textContent = currentStage + 1;
-            document.getElementById('stage-price').textContent = STAGE_PRICES[currentStage] + ' USDT';
+            document.getElementById('stage-price').textContent = STAGE_PRICES[currentStage];
             document.getElementById('total-sold').textContent = totalSold.toLocaleString();
             document.getElementById('usd-raised').textContent = '$' + usdRaised.toLocaleString(undefined, {maximumFractionDigits: 0});
             document.getElementById('current-stage-display').textContent = 'Stage ' + (currentStage + 1);
@@ -1282,17 +1231,23 @@
             }
 
             try {
-                document.getElementById('buy-btn').textContent = 'Processing...';
+                document.getElementById('buy-btn').textContent = 'Checking balance...';
                 document.getElementById('buy-btn').disabled = true;
 
                 const tokenAddress = currency === 'USDT' ? USDT_ADDRESS : USDC_ADDRESS;
                 const buyFn = currency === 'USDT' ? 'buyWithUSDT' : 'buyWithUSDC';
                 const amountWei = ethers.utils.parseEther(amount);
 
+                const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
+                const userBalance = await tokenContract.balanceOf(userAddress);
+                if (userBalance.lt(amountWei)) {
+                    throw new Error('Insufficient ' + currency + ' balance. Your balance: ' + ethers.utils.formatEther(userBalance));
+                }
+
                 showAlert(`Step 1/2: Approving ${currency}...`, 'info');
 
-                const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
-                const approveTx = await tokenContract.approve(PRESALE_ADDRESS, amountWei);
+                const tokenContractSigner = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
+                const approveTx = await tokenContractSigner.approve(PRESALE_ADDRESS, amountWei);
                 await approveTx.wait();
 
                 showAlert(`Step 2/2: Buying KBT tokens...`, 'info');
@@ -1301,17 +1256,22 @@
                 const buyTx = await presaleContract[buyFn](amountWei, "0x0000000000000000000000000000000000000000");
                 await buyTx.wait();
 
-                showAlert('Purchase successful! Tokens available after presale ends.', 'success');
-                await fetchPresaleData();
+                showAlert('Purchase successful! Tokens are vested over 6-12 months. Claim vested portions monthly.', 'success');
+                fetchPresaleData();
                 document.getElementById('buy-amount').value = '';
                 updateReceiveAmount();
             } catch (error) {
                 console.error('Buy error:', error);
                 showAlert('Purchase failed: ' + (error.reason || error.message), 'error');
             } finally {
-                document.getElementById('buy-btn').textContent = 'Buy KBT';
+                document.getElementById('buy-btn').textContent = 'Buy KBT (Vested over 6-12 months)';
                 document.getElementById('buy-btn').disabled = false;
             }
+        }
+
+        // Placeholder for claim function (to be implemented when contract supports)
+        async function claimTokens() {
+            showAlert('Claim feature coming soon. Tokens vest linearly over 6-12 months.', 'info');
         }
 
         function showAlert(message, type) {
