@@ -11,31 +11,26 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0f172a;
-            color: white;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KBT Developer Documentation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --code-bg: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0f172a;
-            color: white;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.7;
+        }
+
+        .container {
             display: flex;
             min-height: 100vh;
         }
@@ -43,289 +38,441 @@
         .sidebar {
             width: 280px;
             background: rgba(15, 23, 42, 0.9);
-            border-right: 1px solid rgba(99, 102, 241, 0.3);
-            padding: 20px;
+            border-right: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 30px 20px;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            left: 0;
+            top: 0;
         }
 
-        .sidebar h3 {
-            color: #667eea;
-            margin: 30px 0 15px;
-            font-size: 0.9em;
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 12px;
             text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 12px;
             letter-spacing: 1px;
         }
 
-        .sidebar ul {
-            list-style: none;
-        }
-
-        .sidebar li {
-            margin-bottom: 8px;
-        }
-
-        .sidebar a {
-            color: #94a3b8;
-            text-decoration: none;
+        .sidebar-link {
             display: block;
+            color: var(--gray);
+            text-decoration: none;
             padding: 8px 12px;
             border-radius: 6px;
             transition: all 0.3s;
+            font-size: 14px;
+            margin-bottom: 5px;
         }
 
-        .sidebar a:hover {
+        .sidebar-link:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .sidebar-link.active {
             background: rgba(99, 102, 241, 0.2);
-            color: white;
+            color: var(--primary);
+            font-weight: 600;
         }
 
         .main-content {
             margin-left: 280px;
             flex: 1;
-            padding: 40px;
+            padding: 40px 60px;
+            max-width: calc(100% - 280px);
         }
 
-        .header {
+        .inner-content {
+            max-width: 900px;
+        }
+
+        .header-banner {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 15px 20px;
+            border-radius: 8px;
             margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header h1 {
-            font-size: 3em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .status-badge {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            background-clip: text;
         }
 
-        .header p {
-            color: #94a3b8;
-            font-size: 1.2em;
+        h2 {
+            font-size: 32px;
+            margin: 50px 0 20px;
+            color: var(--primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(99, 102, 241, 0.3);
         }
 
-        .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .section {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .section h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #a5b4fc;
-        }
-
-        .section h3 {
-            font-size: 1.5em;
+        h3 {
+            font-size: 24px;
             margin: 30px 0 15px;
-            color: #94a3b8;
+            color: var(--light);
         }
 
-        .section p {
-            color: #cbd5e1;
-            line-height: 1.8;
+        h4 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: var(--gray);
+        }
+
+        p {
+            color: var(--gray);
             margin-bottom: 15px;
         }
 
         .code-block {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 12px;
+            background: var(--code-bg);
             border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 20px;
             margin: 20px 0;
             overflow-x: auto;
         }
 
-        .code-block pre {
-            color: #e2e8f0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            line-height: 1.6;
+        .code-header {
+            color: var(--gray);
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .code-block code {
-            color: #10b981;
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a5b4fc;
+            display: block;
+            white-space: pre;
+        }
+
+        .inline-code {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #a5b4fc;
         }
 
         .info-box {
-            background: rgba(59, 130, 246, 0.1);
-            border-left: 4px solid #3b82f6;
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
+            margin: 25px 0;
+            border-radius: 6px;
         }
 
         .warning-box {
-            background: rgba(251, 191, 36, 0.1);
-            border-left: 4px solid #fbbf24;
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
+            margin: 25px 0;
+            border-radius: 6px;
         }
 
         .success-box {
             background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid #10b981;
+            border-left: 4px solid var(--success);
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .warning-box p,
+        .info-box p,
+        .success-box p {
+            margin-bottom: 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            margin: 25px 0;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th {
             background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
+            padding: 15px;
+            text-align: left;
+            color: var(--light);
+            font-weight: 600;
         }
 
         td {
-            color: #cbd5e1;
+            padding: 15px;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            color: var(--gray);
         }
 
-        .badge {
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            color: var(--gray);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .api-endpoint {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .method-badge {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85em;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
             font-weight: 600;
-            margin-right: 8px;
+            margin-right: 10px;
         }
 
-        .badge-primary {
-            background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
-        }
+        .method-get { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .method-post { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+        .method-put { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
 
-        .badge-success {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
             .sidebar {
-                display: none;
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(99, 102, 241, 0.2);
             }
             .main-content {
                 margin-left: 0;
+                padding: 30px 20px;
+                max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <a href="index.html" style="background: rgba(99, 102, 241, 0.2); margin-bottom: 20px;">← Home</a>
-        
-        <h3>Getting Started</h3>
-        <ul>
-            <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#quick-start">Quick Start</a></li>
-            <li><a href="#installation">Installation</a></li>
-        </ul>
-
-        <h3>Smart Contracts</h3>
-        <ul>
-            <li><a href="#token">KBT Token</a></li>
-            <li><a href="#presale">Presale Contract</a></li>
-            <li><a href="#kbtpay">KBTPay Escrow</a></li>
-        </ul>
-
-        <h3>Integration</h3>
-        <ul>
-            <li><a href="#web3">Web3 Integration</a></li>
-            <li><a href="#api">API Reference</a></li>
-            <li><a href="#sdk">SDK Usage</a></li>
-        </ul>
-
-        <h3>Products</h3>
-        <ul>
-            <li><a href="#dex">DEX Integration</a></li>
-            <li><a href="#nft">NFT Marketplace</a></li>
-            <li><a href="#launchpad">Launchpad</a></li>
-        </ul>
-    </div>
-
-    <div class="main-content">
-        <a href="index.html" class="back-btn">← Back to Home</a>
-
-        <div class="header">
-            <h1>Developer Documentation</h1>
-            <p>Build on the KBT Ecosystem - Complete technical guide for developers</p>
-        </div>
-
-        <div id="introduction" class="section">
-            <h2>Introduction</h2>
-            <p>Welcome to the KBT Developer Documentation. This guide will help you integrate with KBT smart contracts, build dApps on our ecosystem, and leverage our APIs for your projects.</p>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">KBT DOCS</div>
             
-            <div class="info-box">
-                <strong>Version:</strong> 1.0.0<br>
-                <strong>Network:</strong> Sepolia Testnet (Ethereum Mainnet coming Q2 2025)<br>
-                <strong>Support:</strong> developers@kbt.io
+            <div class="sidebar-section">
+                <h3>GETTING STARTED</h3>
+                <a href="#introduction" class="sidebar-link active">Introduction</a>
+                <a href="#quick-start" class="sidebar-link">Quick Start</a>
+                <a href="#testnet" class="sidebar-link">Testnet Info</a>
             </div>
 
-            <h3>Contract Addresses (Sepolia)</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Contract</th>
-                        <th>Address</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>KBT Token</td>
-                        <td><code>0x27533fEF27f07224e746705Da19243f89Dc36D81</code></td>
-                        <td><span class="badge badge-success">Live</span></td>
-                    </tr>
-                    <tr>
-                        <td>Presale</td>
-                        <td><code>0xF71e278443EBb18165a33Cf844bD9fDe8842B574</code></td>
-                        <td><span class="badge badge-success">Live</span></td>
-                    </tr>
-                    <tr>
-                        <td>KBTPay Escrow</td>
-                        <td><code>0xe5Af7561abAc07D28794B8d361f883928279Cd70</code></td>
-                        <td><span class="badge badge-success">Live</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div id="quick-start" class="section">
-            <h2>Quick Start</h2>
-            
-            <h3>Install Dependencies</h3>
-            <div class="code-block">
-                <pre><code>npm install ethers wagmi viem @rainbow-me/rainbowkit</code></pre>
+            <div class="sidebar-section">
+                <h3>SMART CONTRACTS</h3>
+                <a href="#token-contract" class="sidebar-link">KBT Token</a>
+                <a href="#presale-contract" class="sidebar-link">Presale</a>
+                <a href="#kbtpay-contract" class="sidebar-link">KBTPay Escrow</a>
             </div>
 
-            <h3>Connect to KBT Token</h3>
-            <div class="code-block">
-                <pre>
-import { ethers } from 'ethers';
+            <div class="sidebar-section">
+                <h3>API REFERENCE</h3>
+                <a href="#payment-api" class="sidebar-link">Payment API</a>
+                <a href="#webhooks" class="sidebar-link">Webhooks</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>INTEGRATION</h3>
+                <a href="#merchant-setup" class="sidebar-link">Merchant Setup</a>
+                <a href="#plugins" class="sidebar-link">Platform Plugins</a>
+                <a href="#examples" class="sidebar-link">Code Examples</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>RESOURCES</h3>
+                <a href="#support" class="sidebar-link">Support</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="inner-content">
+                <div class="header-banner">
+                    <div>
+                        <strong style="color: var(--light);">📚 Developer Documentation</strong>
+                        <p style="font-size: 14px; color: var(--gray); margin-top: 5px;">
+                            Testnet Phase • Last Updated: December 2025
+                        </p>
+                    </div>
+                    <span class="status-badge">TESTNET ONLY</span>
+                </div>
+
+                <section id="introduction">
+                    <h1>KBT Developer Documentation</h1>
+                    <p style="font-size: 18px;">
+                        Technical documentation for integrating with the KBT Ecosystem payment platform. 
+                        Currently in testnet phase - mainnet launch planned Q3 2026.
+                    </p>
+
+                    <div class="warning-box">
+                        <strong style="display: block; margin-bottom: 10px;">⚠️ Important Notice</strong>
+                        <p style="margin: 0;">
+                            This documentation covers testnet implementations only. All contract addresses, 
+                            API endpoints, and features are subject to change before mainnet launch. 
+                            DO NOT use these contracts with real mainnet funds.
+                        </p>
+                    </div>
+
+                    <h2 id="quick-start">Quick Start</h2>
+                    
+                    <h3>Prerequisites</h3>
+                    <ul>
+                        <li>Web3 wallet (MetaMask recommended)</li>
+                        <li>Sepolia testnet ETH (get from <a href="https://sepoliafaucet.com">faucet</a>)</li>
+                        <li>Basic understanding of Ethereum and smart contracts</li>
+                        <li>Node.js 16+ (for API integration)</li>
+                    </ul>
+
+                    <h3>Install Dependencies</h3>
+                    <div class="code-block">
+                        <div class="code-header">npm</div>
+                        <code>npm install ethers wagmi viem @rainbow-me/rainbowkit</code>
+                    </div>
+
+                    <h3>Testnet Networks</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Network</th>
+                                <th>Chain ID</th>
+                                <th>RPC URL</th>
+                                <th>Explorer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sepolia (Primary)</td>
+                                <td>11155111</td>
+                                <td>https://sepolia.infura.io</td>
+                                <td>sepolia.etherscan.io</td>
+                            </tr>
+                            <tr>
+                                <td>Polygon Amoy</td>
+                                <td>80002</td>
+                                <td>https://rpc-amoy.polygon.technology</td>
+                                <td>amoy.polygonscan.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="testnet">Testnet Contract Addresses</h2>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Sepolia Testnet</span>
+                            <span style="color: var(--success);">✓ Active</span>
+                        </div>
+                        <code># KBT Token Contract
+Address: 0x27533fEF27f07224e746705Da19243f89Dc36D81
+Decimals: 18
+Symbol: KBT
+Total Supply: 1,500,000,000 KBT
+
+# Presale Contract
+Address: 0xF71e278443EBb18165a33Cf844bD9fDe8842B574
+Accepts: ETH, USDT, USDC
+
+# KBTPay Escrow
+Address: 0xe5Af7561abAc07D28794B8d361f883928279Cd70
+Fee: 1.8% per transaction (0% first month)</code>
+                    </div>
+
+                    <div class="info-box">
+                        <p style="margin: 0;"><strong>Testing Tokens:</strong> Need testnet USDT/USDC? Contact us at dev@kbtecosystem.com for test token access.</p>
+                    </div>
+                </section>
+
+                <section id="token-contract">
+                    <h2>KBT Token Contract</h2>
+                    
+                    <h3>Overview</h3>
+                    <p>
+                        Standard ERC-20 token with 1.5 billion fixed supply. No minting after deployment.
+                    </p>
+
+                    <h3>Contract Interface</h3>
+                    <div class="code-block">
+                        <div class="code-header">Solidity Interface</div>
+                        <code>interface IKBT {
+  function totalSupply() external view returns (uint256);
+  function balanceOf(address account) external view returns (uint256);
+  function transfer(address to, uint256 amount) external returns (bool);
+  function approve(address spender, uint256 amount) external returns (bool);
+  function transferFrom(address from, address to, uint256 amount) external returns (bool);
+  function allowance(address owner, address spender) external view returns (uint256);
+}</code>
+                    </div>
+
+                    <h3>Reading Token Balance</h3>
+                    <div class="code-block">
+                        <div class="code-header">JavaScript (ethers.js v5)</div>
+                        <code>const { ethers } = require('ethers');
 
 const KBT_ADDRESS = "0x27533fEF27f07224e746705Da19243f89Dc36D81";
 const KBT_ABI = [
@@ -340,114 +487,126 @@ const kbtContract = new ethers.Contract(KBT_ADDRESS, KBT_ABI, signer);
 
 // Get balance
 const balance = await kbtContract.balanceOf(address);
-console.log("KBT Balance:", ethers.utils.formatEther(balance));
-                </pre>
-            </div>
-        </div>
+console.log("KBT Balance:", ethers.utils.formatEther(balance));</code>
+                    </div>
 
-        <div id="token" class="section">
-            <h2>KBT Token Contract</h2>
-            
-            <h3>Token Details</h3>
-            <table>
-                <tr>
-                    <td><strong>Name:</strong></td>
-                    <td>KBT Token</td>
-                </tr>
-                <tr>
-                    <td><strong>Symbol:</strong></td>
-                    <td>KBT</td>
-                </tr>
-                <tr>
-                    <td><strong>Decimals:</strong></td>
-                    <td>18</td>
-                </tr>
-                <tr>
-                    <td><strong>Total Supply:</strong></td>
-                    <td>1,500,000,000 KBT</td>
-                </tr>
-                <tr>
-                    <td><strong>Standard:</strong></td>
-                    <td>ERC-20</td>
-                </tr>
-            </table>
+                    <h3>Transferring Tokens</h3>
+                    <div class="code-block">
+                        <div class="code-header">JavaScript Example</div>
+                        <code>const wallet = new ethers.Wallet('YOUR_PRIVATE_KEY', provider);
+const contractWithSigner = kbtContract.connect(wallet);
 
-            <h3>Read Functions</h3>
-            <div class="code-block">
-                <pre>
-// Get token balance
-function balanceOf(address account) external view returns (uint256)
+const recipient = '0xRecipientAddress';
+const amount = ethers.utils.parseEther('100'); // 100 KBT
 
-// Get total supply
-function totalSupply() external view returns (uint256)
+const tx = await contractWithSigner.transfer(recipient, amount);
+await tx.wait();
+console.log('Transfer complete:', tx.hash);</code>
+                    </div>
 
-// Check allowance
-function allowance(address owner, address spender) external view returns (uint256)
-                </pre>
-            </div>
+                    <h3>Token Details</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>KBT Token</td>
+                            </tr>
+                            <tr>
+                                <td>Symbol</td>
+                                <td>KBT</td>
+                            </tr>
+                            <tr>
+                                <td>Decimals</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <td>Total Supply</td>
+                                <td>1,500,000,000 KBT</td>
+                            </tr>
+                            <tr>
+                                <td>Standard</td>
+                                <td>ERC-20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
 
-            <h3>Write Functions</h3>
-            <div class="code-block">
-                <pre>
-// Transfer tokens
-function transfer(address to, uint256 amount) external returns (bool)
+                <section id="presale-contract">
+                    <h2>Presale Contract</h2>
+                    
+                    <h3>How to Participate</h3>
+                    <p>The presale contract accepts ETH, USDT, and USDC. Here's how to buy KBT tokens:</p>
 
-// Approve spending
-function approve(address spender, uint256 amount) external returns (bool)
+                    <h3>Buying with ETH</h3>
+                    <div class="code-block">
+                        <div class="code-header">JavaScript</div>
+                        <code>const PRESALE_ADDRESS = "0xF71e278443EBb18165a33Cf844bD9fDe8842B574";
+const presaleAbi = ['function buyWithETH() payable'];
 
-// Transfer from
-function transferFrom(address from, address to, uint256 amount) external returns (bool)
-                </pre>
-            </div>
-        </div>
+const contract = new ethers.Contract(PRESALE_ADDRESS, presaleAbi, signer);
 
-        <div id="presale" class="section">
-            <h2>Presale Contract</h2>
-            
-            <h3>Buy with USDT</h3>
-            <div class="code-block">
-                <pre>
-const PRESALE_ADDRESS = "0xF71e278443EBb18165a33Cf844bD9fDe8842B574";
+// Buy with 0.1 ETH
+const tx = await contract.buyWithETH({ value: ethers.utils.parseEther('0.1') });
+await tx.wait();
+console.log('Purchase successful!');</code>
+                    </div>
+
+                    <h3>Buying with USDT</h3>
+                    <div class="code-block">
+                        <div class="code-header">JavaScript</div>
+                        <code>const PRESALE_ADDRESS = "0xF71e278443EBb18165a33Cf844bD9fDe8842B574";
 const USDT_ADDRESS = "0xea70e6d9579110a965bEf06ff01d03216F5Ee1F1";
 
 // 1. Approve USDT
 const usdtContract = new ethers.Contract(USDT_ADDRESS, ERC20_ABI, signer);
-const amount = ethers.utils.parseEther("100"); // 100 USDT
+const amount = ethers.utils.parseUnits("100", 6); // 100 USDT (6 decimals)
 await usdtContract.approve(PRESALE_ADDRESS, amount);
 
-// 2. Buy KBT
+// 2. Buy KBT with referrer (optional)
 const presaleContract = new ethers.Contract(PRESALE_ADDRESS, PRESALE_ABI, signer);
 const referrer = "0x0000000000000000000000000000000000000000"; // No referrer
-await presaleContract.buyWithUSDT(amount, referrer);
-                </pre>
-            </div>
+await presaleContract.buyWithUSDT(amount, referrer);</code>
+                    </div>
 
-            <div class="warning-box">
-                <strong>Important:</strong> Always approve tokens before calling buy functions. The referrer address can be zero address if no referral.
-            </div>
-
-            <h3>Get Presale Info</h3>
-            <div class="code-block">
-                <pre>
-const info = await presaleContract.getPresaleInfo();
+                    <h3>Get Presale Info</h3>
+                    <div class="code-block">
+                        <div class="code-header">JavaScript</div>
+                        <code>const info = await presaleContract.getPresaleInfo();
 
 console.log("Presale Start:", info.start);
 console.log("Current Stage:", info.stage);
 console.log("Tokens Sold:", ethers.utils.formatEther(info.tokensSold));
-console.log("Stage Price:", ethers.utils.formatEther(info.stagePrice));
-                </pre>
-            </div>
-        </div>
+console.log("Stage Price:", ethers.utils.formatEther(info.stagePrice));</code>
+                    </div>
 
-        <div id="kbtpay" class="section">
-            <h2>KBTPay Integration</h2>
-            
-            <h3>Accept Payments</h3>
-            <p>Integrate KBTPay to accept crypto payments in your application:</p>
+                    <div class="info-box">
+                        <p style="margin: 0;"><strong>Important:</strong> Presale tokens are locked until mainnet launch (Q3 2026). 
+                        You won't be able to transfer or trade them on testnet.</p>
+                    </div>
+                </section>
 
-            <div class="code-block">
-                <pre>
-// Create payment intent
+                <section id="kbtpay-contract">
+                    <h2>KBTPay Escrow Contract</h2>
+                    
+                    <h3>Payment Flow</h3>
+                    <ol>
+                        <li>Create payment intent via API</li>
+                        <li>Customer sends payment to merchant</li>
+                        <li>System records transaction hash</li>
+                        <li>Merchant receives payment (minus fee)</li>
+                        <li>Transaction tracked in dashboard</li>
+                    </ol>
+
+                    <h3>Creating a Payment</h3>
+                    <div class="code-block">
+                        <div class="code-header">JavaScript - Create Payment Intent</div>
+                        <code>// Create payment intent
 const response = await fetch('http://localhost:3000/api/transactions/create-intent', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -460,9 +619,13 @@ const response = await fetch('http://localhost:3000/api/transactions/create-inte
   })
 });
 
-const { paymentId } = await response.json();
+const { paymentId } = await response.json();</code>
+                    </div>
 
-// Send transaction
+                    <h3>Processing Payment</h3>
+                    <div class="code-block">
+                        <div class="code-header">JavaScript - Send Transaction</div>
+                        <code>// Send transaction
 const tx = await signer.sendTransaction({
   to: merchantAddress,
   value: ethers.utils.parseEther("1.0")
@@ -476,46 +639,159 @@ await fetch('http://localhost:3000/api/transactions/update-hash', {
     paymentId: paymentId,
     transactionHash: tx.hash
   })
-});
-                </pre>
-            </div>
+});</code>
+                    </div>
 
-            <h3>Fee Structure</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Service</th>
-                        <th>Fee</th>
-                        <th>Notes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Payment Processing</td>
-                        <td>1.8%</td>
-                        <td>Industry-leading low fees</td>
-                    </tr>
-                    <tr>
-                        <td>First Month</td>
-                        <td>0%</td>
-                        <td>Free for new merchants</td>
-                    </tr>
-                    <tr>
-                        <td>KBT Cashback</td>
-                        <td>1%</td>
-                        <td>Paid in KBT tokens</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    <h3>Fee Structure</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Fee</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Payment Processing</td>
+                                <td>1.8%</td>
+                                <td>Industry-leading low fees</td>
+                            </tr>
+                            <tr>
+                                <td>First Month</td>
+                                <td>0%</td>
+                                <td>Free for new merchants</td>
+                            </tr>
+                            <tr>
+                                <td>KBT Cashback</td>
+                                <td>1%</td>
+                                <td>Paid in KBT tokens</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
 
-        <div id="web3" class="section">
-            <h2>Web3 Integration</h2>
-            
-            <h3>Using Wagmi (React)</h3>
-            <div class="code-block">
-                <pre>
-import { useAccount, useWriteContract, usePublicClient } from 'wagmi';
+                <section id="payment-api">
+                    <h2>Payment API</h2>
+                    
+                    <div class="info-box">
+                        <strong style="display: block; margin-bottom: 10px;">📡 API Base URL</strong>
+                        <p style="margin: 0;">
+                            <span class="inline-code">http://localhost:3000/api</span> (Development)<br>
+                            Production URL will be announced at mainnet launch.
+                        </p>
+                    </div>
+
+                    <h3>API Endpoints</h3>
+
+                    <div class="api-endpoint">
+                        <div>
+                            <span class="method-badge method-post">POST</span>
+                            <strong>/transactions/create-intent</strong>
+                        </div>
+                        <p style="margin-top: 10px;">Create a new payment intent</p>
+                        <div class="code-block" style="margin-top: 15px;">
+                            <div class="code-header">Request Body</div>
+                            <code>{
+  "merchantAddress": "0x...",
+  "customerAddress": "0x...",
+  "amount": "1000000000000000000",
+  "tokenAddress": "0x0000000000000000000000000000000000000000",
+  "chainId": 11155111
+}</code>
+                        </div>
+                    </div>
+
+                    <div class="api-endpoint">
+                        <div>
+                            <span class="method-badge method-post">POST</span>
+                            <strong>/transactions/update-hash</strong>
+                        </div>
+                        <p style="margin-top: 10px;">Update payment with transaction hash</p>
+                        <div class="code-block" style="margin-top: 15px;">
+                            <div class="code-header">Request Body</div>
+                            <code>{
+  "paymentId": "payment_id_here",
+  "transactionHash": "0x..."
+}</code>
+                        </div>
+                    </div>
+
+                    <div class="api-endpoint">
+                        <div>
+                            <span class="method-badge method-get">GET</span>
+                            <strong>/transactions/merchant/:address</strong>
+                        </div>
+                        <p style="margin-top: 10px;">Get all transactions for a merchant</p>
+                    </div>
+                </section>
+
+                <section id="webhooks">
+                    <h2>Webhooks (Planned)</h2>
+                    
+                    <p>
+                        Webhooks will allow you to receive real-time notifications about payment events. 
+                        Implementation planned for mainnet launch.
+                    </p>
+
+                    <h3>Event Types</h3>
+                    <ul>
+                        <li><span class="inline-code">payment.created</span> - New payment initiated</li>
+                        <li><span class="inline-code">payment.confirmed</span> - Payment confirmed by merchant</li>
+                        <li><span class="inline-code">payment.disputed</span> - Payment disputed</li>
+                        <li><span class="inline-code">payment.refunded</span> - Payment refunded to customer</li>
+                        <li><span class="inline-code">payment.completed</span> - Payment successfully completed</li>
+                    </ul>
+                </section>
+
+                <section id="merchant-setup">
+                    <h2>Merchant Setup Guide</h2>
+                    
+                    <h3>Step 1: Register (Coming Soon)</h3>
+                    <p>Merchant registration portal will be available at mainnet launch. For testnet access, contact us at <a href="mailto:dev@kbtecosystem.com">dev@kbtecosystem.com</a></p>
+
+                    <h3>Step 2: Generate API Keys</h3>
+                    <p>Once registered, you'll receive:</p>
+                    <ul>
+                        <li>Public API Key (for client-side integration)</li>
+                        <li>Secret API Key (for server-side operations)</li>
+                        <li>Webhook signing secret</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p style="margin: 0;"><strong>Beta Testing:</strong> We're currently recruiting merchants for beta testing 
+                        on testnet. If interested, apply at <a href="mailto:merchants@kbtecosystem.com">merchants@kbtecosystem.com</a></p>
+                    </div>
+                </section>
+
+                <section id="plugins">
+                    <h2>Platform Plugins (Planned)</h2>
+                    
+                    <h3>WooCommerce Plugin</h3>
+                    <p>Status: Planned for Q4 2026</p>
+                    <ul>
+                        <li>One-click installation</li>
+                        <li>Automatic order status updates</li>
+                        <li>Multi-currency support</li>
+                        <li>Refund management</li>
+                    </ul>
+
+                    <h3>Shopify App</h3>
+                    <p>Status: Planned for Q4 2026</p>
+                    <ul>
+                        <li>Native Shopify checkout integration</li>
+                        <li>Real-time payment notifications</li>
+                        <li>Customer wallet address storage</li>
+                    </ul>
+                </section>
+
+                <section id="examples">
+                    <h2>Code Examples</h2>
+                    
+                    <h3>React Integration with Wagmi</h3>
+                    <div class="code-block">
+                        <div class="code-header">React Component</div>
+                        <code>import { useAccount, useWriteContract, usePublicClient } from 'wagmi';
 
 function BuyKBT() {
   const { address } = useAccount();
@@ -523,6 +799,10 @@ function BuyKBT() {
   const publicClient = usePublicClient();
 
   async function buyTokens() {
+    const PRESALE_ADDRESS = "0xF71e278443EBb18165a33Cf844bD9fDe8842B574";
+    const USDT_ADDRESS = "0xea70e6d9579110a965bEf06ff01d03216F5Ee1F1";
+    const amount = ethers.utils.parseUnits("100", 6);
+
     // Approve
     const approveTx = await writeContractAsync({
       address: USDT_ADDRESS,
@@ -542,78 +822,101 @@ function BuyKBT() {
     await publicClient.waitForTransactionReceipt({ hash: buyTx });
   }
 
-  return <button onClick={buyTokens}>Buy KBT</button>;
+  return &lt;button onClick={buyTokens}&gt;Buy KBT&lt;/button&gt;;
+}</code>
+                    </div>
+
+                    <div class="info-box">
+                        <p style="margin: 0;"><strong>💡 Tip:</strong> Use Wagmi hooks for better React integration and automatic state management.</p>
+                    </div>
+
+                    <h3>Full Payment Flow Example</h3>
+                    <div class="code-block">
+                        <div class="code-header">Node.js Complete Example</div>
+                        <code>const { ethers } = require('ethers');
+
+// Setup
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const signer = provider.getSigner();
+
+// Create payment intent
+async function createPayment(merchantAddr, amount) {
+  const response = await fetch('http://localhost:3000/api/transactions/create-intent', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      merchantAddress: merchantAddr,
+      customerAddress: await signer.getAddress(),
+      amount: amount.toString(),
+      tokenAddress: "0x0000000000000000000000000000000000000000",
+      chainId: 11155111
+    })
+  });
+  
+  const { paymentId } = await response.json();
+  
+  // Send transaction
+  const tx = await signer.sendTransaction({
+    to: merchantAddr,
+    value: amount
+  });
+  
+  // Update hash
+  await fetch('http://localhost:3000/api/transactions/update-hash', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      paymentId: paymentId,
+      transactionHash: tx.hash
+    })
+  });
+  
+  return tx.hash;
 }
-                </pre>
+
+// Use it
+const txHash = await createPayment('0xMerchant...', ethers.utils.parseEther('1.0'));
+console.log('Payment created:', txHash);</code>
+                    </div>
+                </section>
+
+                <section id="support">
+                    <h2>Support & Resources</h2>
+                    
+                    <div class="info-box">
+                        <h3 style="margin-top: 0;">Need Help?</h3>
+                        <p style="margin: 0;">
+                            <strong>Developer Support:</strong> <a href="mailto:kivebit55@gmail.com">developers@kbt.io</a><br>
+                            <strong>Merchant Inquiries:</strong> <a href="mailto:kivebit55@gmail.com">merchants@kbtecosystem.com</a><br>
+                            <strong>General Questions:</strong> <a href="mailto:kivebit55@gmail.com">info@kbtecosystem.com</a>
+                        </p>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(99, 102, 241, 0.2);">
+                        © 2025 KBT Ecosystem. All rights reserved.
+                    </p>
+                </section>
             </div>
-
-            <div class="success-box">
-                <strong>Tip:</strong> Use Wagmi hooks for better React integration and automatic state management.
-            </div>
-        </div>
-
-        <div id="api" class="section">
-            <h2>API Reference</h2>
-            
-            <h3>Base URL</h3>
-            <div class="code-block">
-                <pre>http://localhost:3000/api</pre>
-            </div>
-
-            <h3>Endpoints</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Endpoint</th>
-                        <th>Method</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>/transactions/create-intent</td>
-                        <td>POST</td>
-                        <td>Create payment intent</td>
-                    </tr>
-                    <tr>
-                        <td>/transactions/update-hash</td>
-                        <td>POST</td>
-                        <td>Update transaction hash</td>
-                    </tr>
-                    <tr>
-                        <td>/transactions/merchant/:address</td>
-                        <td>GET</td>
-                        <td>Get merchant transactions</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Example Request</h3>
-            <div class="code-block">
-                <pre>
-POST /api/transactions/create-intent
-Content-Type: application/json
-
-{
-  "merchantAddress": "0x...",
-  "customerAddress": "0x...",
-  "amount": "1000000000000000000",
-  "tokenAddress": "0x0000000000000000000000000000000000000000",
-  "chainId": 11155111
-}
-                </pre>
-            </div>
-        </div>
-
-        <div class="section" style="text-align: center; padding: 60px 40px;">
-            <h2>Need Help?</h2>
-            <p style="margin: 20px 0;">Join our developer community for support</p>
-            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
-                <a href="#" class="back-btn" style="text-decoration: none;">Discord Community</a>
-                <a href="#" class="back-btn" style="text-decoration: none;">GitHub</a>
-                <a href="#" class="back-btn" style="text-decoration: none;">Telegram</a>
-            </div>
-        </div>
+        </main>
     </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active link
+                    document.querySelectorAll('.sidebar-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
