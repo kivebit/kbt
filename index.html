@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5T259MMSX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J5T259MMSX');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KBT Ecosystem - Multi-Chain DeFi Platform</title>
+    <title>KBT Ecosystem - Multi-Layer Blockchain Payment Platform</title>
     <style>
         * {
             margin: 0;
@@ -18,8 +27,9 @@
             --dark: #0f172a;
             --darker: #020617;
             --light: #f8fafc;
+            --success: #10b981;
+            --warning: #f59e0b;
             --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
         body {
@@ -52,7 +62,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: bgMove 20s linear infinite;
         }
@@ -64,7 +74,7 @@
 
         /* Header */
         header {
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             padding: 20px 0;
             position: sticky;
@@ -83,7 +93,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             background: var(--gradient);
             -webkit-background-clip: text;
@@ -109,7 +119,7 @@
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             list-style: none;
         }
 
@@ -118,6 +128,7 @@
             text-decoration: none;
             transition: color 0.3s;
             font-weight: 500;
+            font-size: 15px;
         }
 
         .nav-links a:hover {
@@ -126,72 +137,98 @@
 
         .cta-btn {
             background: var(--gradient);
-            padding: 12px 30px;
+            padding: 12px 28px;
             border-radius: 8px;
             color: white;
             text-decoration: none;
             font-weight: 600;
             transition: transform 0.3s;
+            font-size: 14px;
         }
 
         .cta-btn:hover {
             transform: translateY(-2px);
         }
 
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: var(--success);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
         /* Hero Section */
         .hero {
-            padding: 120px 0;
+            padding: 100px 0 80px;
             text-align: center;
             position: relative;
         }
 
         .hero h1 {
-            font-size: 64px;
+            font-size: 52px;
             margin-bottom: 20px;
             background: linear-gradient(135deg, #667eea 0%, #f093fb 50%, #f5576c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textShine 3s ease-in-out infinite;
-        }
-
-        @keyframes textShine {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.3); }
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: 22px;
+            font-size: 20px;
             color: #94a3b8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
         }
 
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 60px;
+            gap: 40px;
             margin-top: 60px;
             flex-wrap: wrap;
         }
 
         .stat-card {
             text-align: center;
-            padding: 30px;
-            background: rgba(99, 102, 241, 0.1);
+            padding: 25px 30px;
+            background: rgba(99, 102, 241, 0.08);
             border-radius: 16px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            min-width: 200px;
-            transition: transform 0.3s;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            min-width: 180px;
+            transition: all 0.3s;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
+            border-color: var(--primary);
         }
 
         .stat-number {
-            font-size: 48px;
+            font-size: 42px;
             font-weight: bold;
             background: var(--gradient);
             -webkit-background-clip: text;
@@ -200,311 +237,319 @@
 
         .stat-label {
             color: #94a3b8;
-            margin-top: 10px;
+            margin-top: 8px;
+            font-size: 14px;
         }
 
-        /* Features Grid */
-        .features {
-            padding: 100px 0;
-        }
-
+        /* Sections */
         .section-title {
             text-align: center;
-            font-size: 48px;
-            margin-bottom: 60px;
+            font-size: 42px;
+            margin-bottom: 20px;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .features-grid {
+        .section-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 18px;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Testnet Status */
+        .testnet-status {
+            padding: 80px 0;
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .status-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .status-item {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s;
+        }
+
+        .status-item:hover {
+            border-color: var(--success);
+            transform: translateY(-3px);
+        }
+
+        .status-item h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--light);
+            font-size: 20px;
+        }
+
+        .check-icon {
+            color: var(--success);
+            font-size: 24px;
+        }
+
+        .contract-address {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #a5b4fc;
+            word-break: break-all;
+            margin-top: 10px;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
 
         .feature-card {
-            background: rgba(15, 23, 42, 0.5);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(15, 23, 42, 0.6);
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.15);
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: var(--primary);
         }
 
         .feature-icon {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: var(--gradient);
-            border-radius: 16px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 28px;
             margin-bottom: 20px;
         }
 
         .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 22px;
+            margin-bottom: 12px;
             color: var(--light);
         }
 
         .feature-card p {
             color: #94a3b8;
-            line-height: 1.8;
-        }
-
-        /* Roadmap */
-        .roadmap {
-            padding: 100px 0;
-            background: rgba(15, 23, 42, 0.5);
-        }
-
-        .timeline {
-            position: relative;
-            padding: 50px 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--gradient);
-        }
-
-        .timeline-item {
-            margin-bottom: 80px;
-            position: relative;
-        }
-
-        .timeline-content {
-            width: 45%;
-            padding: 30px;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 16px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            position: relative;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-left: auto;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: var(--gradient);
-            border-radius: 50%;
-            border: 4px solid var(--darker);
-        }
-
-        .timeline-year {
-            font-size: 32px;
-            font-weight: bold;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 15px;
         }
 
         /* KBTPay Section */
         .kbtpay-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
         }
 
         .kbtpay-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 50px;
             align-items: center;
         }
 
         .kbtpay-features {
             display: grid;
-            gap: 20px;
+            gap: 18px;
         }
 
         .kbtpay-feature {
             background: rgba(15, 23, 42, 0.8);
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
             transition: all 0.3s;
         }
 
         .kbtpay-feature:hover {
             border-left-color: var(--accent);
-            transform: translateX(10px);
+            transform: translateX(8px);
+        }
+
+        .kbtpay-feature h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .kbtpay-feature p {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         .kbtpay-visual {
             background: rgba(15, 23, 42, 0.8);
-            padding: 50px;
-            border-radius: 20px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
             text-align: center;
         }
 
         .payment-icon {
-            font-size: 120px;
-            margin-bottom: 30px;
+            font-size: 100px;
+            margin-bottom: 25px;
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
-        /* Partners */
-        .partners {
-            padding: 100px 0;
+        /* Roadmap */
+        .roadmap {
+            padding: 80px 0;
+            background: rgba(15, 23, 42, 0.3);
         }
 
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 0;
         }
 
-        .partner-card {
-            background: rgba(15, 23, 42, 0.5);
-            padding: 40px;
-            border-radius: 16px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            text-align: center;
-            transition: all 0.3s;
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            padding-left: 50px;
         }
 
-        .partner-card:hover {
-            transform: scale(1.05);
-            border-color: var(--primary);
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 40px;
+            bottom: -50px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary) 0%, transparent 100%);
         }
 
-        .partner-logo {
-            font-size: 48px;
-            margin-bottom: 15px;
+        .timeline-item:last-child::before {
+            display: none;
         }
 
-        /* Chain Launch */
-        .chain-launch {
-            padding: 100px 0;
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
             background: var(--gradient);
-            text-align: center;
+            border-radius: 50%;
+            border: 4px solid var(--darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
         }
 
-        .chain-launch h2 {
-            font-size: 56px;
-            margin-bottom: 20px;
+        .timeline-content {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
         }
 
-        .chain-specs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .spec-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-        }
-
-        .spec-value {
-            font-size: 36px;
+        .timeline-year {
+            font-size: 20px;
             font-weight: bold;
+            color: var(--primary);
             margin-bottom: 10px;
         }
 
-        /* Tokenomics */
-        .tokenomics {
-            padding: 100px 0;
+        .timeline-content h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
         }
 
-        .token-distribution {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 60px;
+        .timeline-content ul {
+            list-style: none;
+            color: #94a3b8;
+            line-height: 1.9;
         }
 
-        .token-card {
-            background: rgba(15, 23, 42, 0.5);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
+        .timeline-content ul li {
+            padding-left: 20px;
             position: relative;
-            overflow: hidden;
+            font-size: 14px;
         }
 
-        .token-card::before {
-            content: '';
+        .timeline-content ul li::before {
+            content: '•';
             position: absolute;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
+            color: var(--primary);
         }
 
-        .token-percentage {
-            font-size: 42px;
-            font-weight: bold;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Disclaimer */
+        .disclaimer {
+            padding: 60px 0;
+            background: rgba(239, 68, 68, 0.05);
+            border-top: 2px solid rgba(239, 68, 68, 0.2);
+            border-bottom: 2px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .disclaimer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .disclaimer h2 {
+            color: #fca5a5;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .disclaimer p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 15px;
         }
 
         /* Footer */
         footer {
-            background: rgba(15, 23, 42, 0.9);
-            padding: 60px 0 30px;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 50px 0 25px;
             border-top: 1px solid rgba(99, 102, 241, 0.2);
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 35px;
+            margin-bottom: 30px;
         }
 
         .footer-section h3 {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             color: var(--primary);
+            font-size: 18px;
         }
 
         .footer-section a {
@@ -513,6 +558,7 @@
             text-decoration: none;
             margin-bottom: 10px;
             transition: color 0.3s;
+            font-size: 14px;
         }
 
         .footer-section a:hover {
@@ -521,20 +567,21 @@
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             background: var(--gradient);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             transition: transform 0.3s;
+            text-decoration: none;
         }
 
         .social-icon:hover {
@@ -543,18 +590,18 @@
 
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 25px;
             border-top: 1px solid rgba(99, 102, 241, 0.2);
             color: #64748b;
+            font-size: 14px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 42px; }
+            .hero h1 { font-size: 36px; }
             .nav-links { display: none; }
             .kbtpay-grid { grid-template-columns: 1fr; }
-            .timeline::before { left: 20px; }
-            .timeline-content { width: calc(100% - 60px); margin-left: 60px !important; }
+            .timeline-item { padding-left: 40px; }
         }
     </style>
 </head>
@@ -568,13 +615,12 @@
                 <span>KBT ECOSYSTEM</span>
             </div>
             <ul class="nav-links">
+                <li><a href="#status">Testnet Status</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#tokenomics">Tokenomics</a></li>
-                <li><a href="#kbtpay">KBTPay</a></li>
-                <li><a href="dex.html">DEX</a></li>
-                <li><a href="nft-marketplace.html">NFT</a></li>
-                <li><a href="launchpad.html">Launchpad</a></li>
+                <li><a href="kbtpay.html">KBTPay</a></li>
+                <li><a href="whitepaper.html">Whitepaper</a></li>
+                <li><a href="documentation.html">Docs</a></li>
             </ul>
             <a href="presale.html" class="cta-btn">Join Presale</a>
         </nav>
@@ -582,482 +628,575 @@
 
     <section class="hero">
         <div class="container">
-            <h1>Next-Gen Multi-Chain Ecosystem</h1>
-            <p>DeFi, NFTs, Gaming, RWA Tokenization & Multi-Layer Blockchain - All in One Platform. Join early for exclusive presale benefits and high-growth potential.</p>
-            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 40px;">
-                <a href="presale.html" class="cta-btn">Buy KBT Now</a>
-                <a href="whitepaper.html" class="cta-btn" style="background: transparent; border: 2px solid var(--primary);">Whitepaper</a>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                TESTNET LIVE - Multi-Layer Deployment Active
+            </div>
+            <h1>Multi-Layer Blockchain<br>Payment Ecosystem</h1>
+            <p>Building a scalable payment gateway and DeFi infrastructure on Polygon L3 and Arbitrum Orbit. Currently deployed on testnets with active smart contracts and testing in progress.</p>
+            <div style="display: flex; justify-content: center; gap: 18px; margin-top: 35px; flex-wrap: wrap;">
+                <a href="presale.html" class="cta-btn">Join Presale Now</a>
+                <a href="whitepaper.html" class="cta-btn" style="background: transparent; border: 2px solid var(--primary);">Read Whitepaper</a>
             </div>
             <div class="hero-stats">
                 <div class="stat-card">
-                    <div class="stat-number">1.5B</div>
-                    <div class="stat-label">Total Supply</div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Testnets Active</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Blockchains</div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Smart Contracts</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">10+</div>
-                    <div class="stat-label">Products</div>
+                    <div class="stat-number">2026</div>
+                    <div class="stat-label">Mainnet Target</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">$5M</div>
-                    <div class="stat-label">Presale Target</div>
+                    <div class="stat-number">L3</div>
+                    <div class="stat-label">Multi-Layer Tech</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
+    <section id="status" class="testnet-status">
         <div class="container">
-            <h2 class="section-title">Ecosystem Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔗</div>
-                    <h3>Multi-Chain & Multi-Layer Support</h3>
-                    <p>Deployed on Ethereum, Polygon, BSC, and Arbitrum. Includes L3 layers on Arbitrum Orbit and Polygon for enhanced scalability. Seamless cross-chain transactions with bridging support.</p>
+            <h2 class="section-title">Current Deployment Status</h2>
+            <p class="section-subtitle">All smart contracts are deployed and functional on testnets. We're conducting thorough testing before mainnet launch.</p>
+            
+            <div class="status-grid">
+                <div class="status-item">
+                    <h3><span class="check-icon">✓</span> KBT Token</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Deployed on Sepolia Testnet</p>
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: var(--success);">Status:</strong> <span style="color: #94a3b8;">Live & Functional</span>
+                    </div>
+                    <div class="contract-address">
+                        0x27533feF27F07224e746705Da19243f89dC36D81
+                    </div>
+                    <a href="https://sepolia.etherscan.io/address/0x27533feF27F07224e746705Da19243f89dC36D81" target="_blank" style="display: inline-block; margin-top: 12px; color: var(--primary); text-decoration: none; font-size: 14px;">View on Explorer →</a>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💱</div>
-                    <h3>KBT DEX</h3>
-                    <p>Automated Market Maker with 0.25% fees, yield farming, limit orders, and liquidity mining rewards up to 25% APY.</p>
-                    <a href="dex.html" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: rgba(99, 102, 241, 0.2); color: #a5b4fc; text-decoration: none; border-radius: 8px; transition: all 0.3s;">Visit DEX →</a>
+
+                <div class="status-item">
+                    <h3><span class="check-icon">✓</span> Presale Contract</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Deployed on Sepolia Testnet</p>
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: var(--success);">Status:</strong> <span style="color: #94a3b8;">Testing Phase</span>
+                    </div>
+                    <div class="contract-address">
+                        0xF71e278443EBb18165a33Cf844bD9fDe8842B574
+                    </div>
+                    <a href="https://sepolia.etherscan.io/address/0xF71e278443EBb18165a33Cf844bD9fDe8842B574" target="_blank" style="display: inline-block; margin-top: 12px; color: var(--primary); text-decoration: none; font-size: 14px;">View on Explorer →</a>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Launchpad</h3>
-                    <p>Multi-tier IDO platform. Stake KBT to access exclusive token sales with guaranteed allocations and early access.</p>
-                    <a href="launchpad.html" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: rgba(99, 102, 241, 0.2); color: #a5b4fc; text-decoration: none; border-radius: 8px; transition: all 0.3s;">View Projects →</a>
+
+                <div class="status-item">
+                    <h3><span class="check-icon">✓</span> KBTPay Gateway</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Deployed on Sepolia Testnet</p>
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: var(--success);">Status:</strong> <span style="color: #94a3b8;">Beta Testing</span>
+                    </div>
+                    <div class="contract-address">
+                        0xe5Af7561abAc07D28794B8d361f883928279Cd70
+                    </div>
+                    <a href="https://sepolia.etherscan.io/address/0xe5Af7561abAc07D28794B8d361f883928279Cd70" target="_blank" style="display: inline-block; margin-top: 12px; color: var(--primary); text-decoration: none; font-size: 14px;">View on Explorer →</a>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>NFT Marketplace</h3>
-                    <p>Trade, mint, and stake NFTs across multiple chains. Lazy minting, royalties, and rental marketplace included.</p>
-                    <a href="nft-marketplace.html" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: rgba(99, 102, 241, 0.2); color: #a5b4fc; text-decoration: none; border-radius: 8px; transition: all 0.3s;">Browse NFTs →</a>
+
+                <div class="status-item">
+                    <h3><span class="check-icon">✓</span> KBT Chain L3 - Polygon</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Deployed on Polygon Amoy Testnet</p>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: var(--warning);">Status:</strong> <span style="color: #94a3b8;">Performance Testing</span>
+                    </div>
+                    <p style="color: #64748b; font-size: 13px; margin-top: 10px;">Layer 3 architecture testing - gas optimization, transaction speed, and stability analysis ongoing</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎮</div>
-                    <h3>GameVerse P2E</h3>
-                    <p>Play-to-earn gaming platform with Treasure Hunt, Battle Arena, and Yield Farm Simulator. Earn KBT while playing!</p>
+
+                <div class="status-item">
+                    <h3><span class="check-icon">✓</span> KBT Chain L3 - Arbitrum</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Deployed on Arbitrum Sepolia (Orbit L3)</p>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: var(--warning);">Status:</strong> <span style="color: #94a3b8;">Performance Testing</span>
+                    </div>
+                    <p style="color: #64748b; font-size: 13px; margin-top: 10px;">Orbit L3 deployment testing - benchmarking against Polygon L3 for optimal mainnet selection</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏦</div>
-                    <h3>RWA Tokenization</h3>
-                    <p>Tokenize real-world assets: gold, real estate, invoices. Fractional ownership with smart contract distributions.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>AI DeFi Assistant</h3>
-                    <p>AI-powered portfolio analysis, trading optimization, gas predictions, and automated DCA strategies.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏛️</div>
-                    <h3>DAO Governance</h3>
-                    <p>Community-driven decisions. 1 KBT = 1 vote. Propose changes, vote on treasury allocation, earn rewards.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>P2P Exchange</h3>
-                    <p>Peer-to-peer fiat gateway with escrow. Trade KBT for USD, EUR, INR, GBP via bank transfer, UPI, PayPal.</p>
+
+                <div class="status-item">
+                    <h3><span style="color: #f59e0b; font-size: 24px;">⏳</span> Security Audits</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Scheduled for Q2 2026</p>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: var(--warning);">Status:</strong> <span style="color: #94a3b8;">Pending</span>
+                    </div>
+                    <p style="color: #64748b; font-size: 13px; margin-top: 10px;">Professional audit by CertiK or Hacken before mainnet deployment</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="kbtpay" class="kbtpay-section">
+    <section style="padding: 80px 0; background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);">
         <div class="container">
-            <h2 class="section-title">KBTPay Payment Gateway - Live on Testnet</h2>
-            <div class="kbtpay-grid">
-                <div class="kbtpay-features">
-                    <div class="kbtpay-feature">
-                        <h3>💳 Multi-Currency Support</h3>
-                        <p>Accept ETH, MATIC, BNB, ARB, USDT, USDC with real-time conversion via Chainlink oracles. Ideal for retailers seeking low-cost, global payments.</p>
-                    </div>
-                    <div class="kbtpay-feature">
-                        <h3>🎁 1 Month Free Transactions</h3>
-                        <p>New merchants get fee-free transactions for the first month. Zero payment processing costs!</p>
-                    </div>
-                    <div class="kbtpay-feature">
-                        <h3>💰 KBT Rewards Program</h3>
-                        <p>Earn 1% KBT cashback on every transaction. Stake rewards for additional 15-25% APY</p>
-                    </div>
-                    <div class="kbtpay-feature">
-                        <h3>⚡ Instant Settlement</h3>
-                        <p>Payments settled in seconds with smart contract automation. No manual processing required</p>
-                    </div>
-                    <div class="kbtpay-feature">
-                        <h3>🔒 Secure Escrow</h3>
-                        <p>Built-in escrow for P2P transactions. Funds released only after buyer confirmation or timeout</p>
-                    </div>
-                    <div class="kbtpay-feature">
-                        <h3>📊 Analytics Dashboard</h3>
-                        <p>Real-time transaction monitoring, revenue tracking, and detailed financial reports</p>
-                    </div>
-                </div>
-                <div class="kbtpay-visual">
-                    <div class="payment-icon">💳</div>
-                    <h3 style="font-size: 32px; margin-bottom: 20px;">Seamless Crypto Payments</h3>
-                    <p style="color: #94a3b8; font-size: 18px;">Integrate KBTPay into your business with our simple API. Start accepting crypto payments in minutes with zero setup fees. Now live on testnet for early adopters.</p>
-                    <div style="margin-top: 40px;">
-                        <div style="background: rgba(99, 102, 241, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 15px;">
-                            <strong>Fee Structure:</strong> 0.5% per transaction (vs 2-3% traditional)
-                        </div>
-                        <div style="background: rgba(236, 72, 153, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                            <strong>Processing Time:</strong> 3-5 seconds average
-                        </div>
-                        <a href="kbtpay.html" class="cta-btn" style="display: inline-block; text-decoration: none;">
-                            Try KBTPay Now →
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="chain-launch">
-        <div class="container">
-            <h2>🔗 KBT Chain - Testnet Live, Mainnet Q3 2026</h2>
-            <p style="font-size: 22px; margin-top: 20px; opacity: 0.9;">Our Own Multi-Layer (L3) EVM-Compatible Blockchain on Arbitrum Orbit and Polygon - Deployed on Localhost Testnet with Active Contracts and Block Production</p>
-            <div class="chain-specs">
-                <div class="spec-card">
-                    <div class="spec-value">3s</div>
-                    <div>Block Time</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-value">5,000+</div>
-                    <div>TPS</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-value">$0.001</div>
-                    <div>Avg Gas Fee</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-value">100</div>
-                    <div>Validators</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-value">8%</div>
-                    <div>Staking APY</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-value">1M KBT</div>
-                    <div>Validator Stake</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="partners">
-        <div class="container">
-            <h2 class="section-title">Ecosystem Partners</h2>
-            <div class="partners-grid">
-                <div class="partner-card">
-                    <div class="partner-logo">🔗</div>
-                    <h4>Chainlink</h4>
-                    <p>Price Oracles</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">🦄</div>
-                    <h4>Uniswap</h4>
-                    <p>DEX Integration</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">🥞</div>
-                    <h4>PancakeSwap</h4>
-                    <p>BSC Liquidity</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">🛡️</div>
-                    <h4>CertiK</h4>
-                    <p>Security Audits</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">📊</div>
-                    <h4>The Graph</h4>
-                    <p>Data Indexing</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">💼</div>
-                    <h4>OpenZeppelin</h4>
-                    <p>Smart Contracts</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">🔐</div>
-                    <h4>WalletConnect</h4>
-                    <p>Web3 Integration</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">🏦</div>
-                    <h4>Fireblocks</h4>
-                    <p>Custody Solutions</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="tokenomics" class="tokenomics">
-        <div class="container">
-            <h2 class="section-title">Tokenomics</h2>
-            <div style="text-align: center; margin-bottom: 40px;">
-                <div style="font-size: 48px; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1,500,000,000 KBT</div>
-                <p style="color: #94a3b8; font-size: 20px; margin-top: 10px;">Total Supply with Deflationary Burn Mechanism (0.5% per transaction). Designed for long-term value and investor rewards.</p>
-            </div>
-            <div class="token-distribution">
-                <div class="token-card">
-                    <div class="token-percentage">20%</div>
-                    <h4 style="margin: 15px 0;">Presale</h4>
-                    <p style="color: #94a3b8;">300M KBT - Immediate unlock for early supporters</p>
-                </div>
-                <div class="token-card">
-                    <div class="token-percentage">13.3%</div>
-                    <h4 style="margin: 15px 0;">Ecosystem Dev</h4>
-                    <p style="color: #94a3b8;">200M KBT - 36 months linear vesting</p>
-                </div>
-                <div class="token-card">
-                    <div class="token-percentage">12%</div>
-                    <h4 style="margin: 15px 0;">Staking Rewards</h4>
-                    <p style="color: #94a3b8;">180M KBT - 60 months emission</p>
-                </div>
-                <div class="token-card">
-                    <div class="token-percentage">10%</div>
-                    <h4 style="margin: 15px 0;">Liquidity</h4>
-                    <p style="color: #94a3b8;">150M KBT - Locked 24 months</p>
-                </div>
-                <div class="token-card">
-                    <div class="token-percentage">10%</div>
-                    <h4 style="margin: 15px 0;">Treasury/DAO</h4>
-                    <p style="color: #94a3b8;">150M KBT - Community governance</p>
-                </div>
-                <div class="token-card">
-                    <div class="token-percentage">8%</div>
-                    <h4 style="margin: 15px 0;">Marketing</h4>
-                    <p style="color: #94a3b8;">120M KBT - 24 months vesting</p>
-                </div>
-                <div class="token-card">
-                    <div class="token-percentage">6.7%</div>
-                    <h4 style="margin: 15px 0;">Team & Advisors</h4>
-                    <p style="color: #94a3b8;">100M KBT - 48 months (12m cliff)</p>
-                </div>
-                <div class="token-card">
-                    <div class="token-percentage">6.7%</div>
-                    <h4 style="margin: 15px 0;">Partnerships</h4>
-                    <p style="color: #94a3b8;">100M KBT - 36 months vesting</p>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="presale.html" class="cta-btn" style="display: inline-block;">Join Presale Now →</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="roadmap">
-        <div class="container">
-            <h2 class="section-title">Development Roadmap</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Q4 2025 - Foundation ✅</div>
-                        <h3 style="margin-bottom: 15px;">Smart Contracts & Infrastructure</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>✅ KBT Token deployed on Sepolia testnet</li>
-                            <li>✅ Multi-currency presale (ETH, USDT, USDC) - LIVE</li>
-                            <li>✅ KBTPay escrow system live on testnet</li>
-                            <li>✅ L3 Arbitrum Orbit deployed on localhost</li>
-                            <li>✅ Smart contracts deployed & block production active</li>
-                            <li>🔄 Polygon L3 development in progress</li>
-                            <li>🔄 Security audits (CertiK/Hacken) scheduled</li>
-                            <li>📅 Multi-chain deployment (Polygon, BSC, Arbitrum)</li>
-                            <li>🔄 Basic KBT wallet integration</li>
-                            <li>🔄 Security audits pending</li>
-                            <li>📊 Target: 10,000 wallet holders</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Q1-2026 - Infrastructure 🏗️</div>
-                        <h3 style="margin-bottom: 15px;">Layer Architecture Development</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>🚀 KBT wallet integration with Metamask</li>
-                            <li>🚀 Layer Architecture Development</li>
-                            <li>🚀 L3 Arbitrum Orbit deployed on testnet</li>
-                            <li>🚀 Complete Polygon L3 integration on testnet</li>
-                            <li>🚀 Cross-layer bridge development</li>
-                            <li>🚀 Multi-layer testnet deployment</li>
-                            <li>📊 50,000+ users, $5M+ TVL target</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Q2-2026</div>
-                        <h3 style="margin-bottom: 15px;">Expansion & Listings</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>🚀 Launchpad Platform Beta (IDO/IGO)</li>
-                            <li>🚀 First CEX listings</li>
-                            <li>🚀 NFT Marketplace development</li>
-                            <li>🚀 DAO Governance framework</li>
-                            <li>📊 100,000+ users, $10M+ TVL target</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Q3-2026 - Market Launch 🚀</div>
-                        <h3 style="margin-bottom: 15px;">KBT Chain Goes Live</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>🎉 KBT Chain L3 Mainnet Launch</li>
-                            <li>🎉 Arbitrum Orbit L3 Production Deployment</li>
-                            <li>🎉 Polygon L3 Mainnet Integration</li>
-                            <li>🎉 Cross-chain bridges operational</li>
-                            <li>🎉 Validator staking opens (1M KBT minimum)</li>
-                            <li>🎉 8% staking APY for validators</li>
-                            <li>🎉 NFT Marketplace Launch</li>
-                            <li>🎉 AI DeFi Assistant Beta</li>
-                            <li>🎉 DEX Beta testing (from testnet)</li>
-                            <li>📊 200,000+ users target 20M+ TVL target</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Q4 2026 - DeFi Expansion 💎</div>
-                        <h3 style="margin-bottom: 15px;">DEX & Trading Infrastructure</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>💱 KBTPay mainnet (from testnet)</li>
-                            <li>💱 KBT DEX Launch (0.25% fees, AMM)</li>
-                            <li>💱 Yield farming & liquidity mining (up to 25% APY)</li>
-                            <li>💱 Limit orders & advanced trading features</li>
-                            <li>💱 Cross-layer liquidity aggregation</li>
-                            <li>💱 Major DEX listings (Uniswap, PancakeSwap)</li>
-                            <li>💱 Liquidity pools across all layers</li>
-                            <li>📊 500,000+ users, $50M+ TVL target</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Q1-Q2 2027 - P2P & Gaming 🎮</div>
-                        <h3 style="margin-bottom: 15px;">Peer-to-Peer & Play-to-Earn</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>🔄 P2P Fiat Exchange Launch</li>
-                            <li>🔄 Multi-currency support (USD, EUR, INR, GBP)</li>
-                            <li>🔄 UPI, PayPal, Bank Transfer integration</li>
-                            <li>🔄 Advanced escrow & dispute resolution</li>
-                            <li>🎮 GameVerse P2E Platform Launch</li>
-                            <li>🎮 Treasure Hunt, Battle Arena, Yield Farming games</li>
-                            <li>🎮 NFT-based game assets & marketplace</li>
-                            <li>🤖 AI DeFi Assistant Full Release</li>
-                            <li>📊 1M+ users, $200M+ TVL target</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Q3-Q4 2027 - RWA & Scaling 🏛️</div>
-                        <h3 style="margin-bottom: 15px;">Real-World Assets & Performance</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>🏦 RWA Tokenization Platform (Gold, Real Estate, Invoices)</li>
-                            <li>🏦 Fractional ownership & automated distributions</li>
-                            <li>🏦 Regulatory compliance framework</li>
-                            <li>⚡ zkRollup integration (2000+ TPS, 90% cheaper gas)</li>
-                            <li>⚡ Cross-chain optimizations</li>
-                            <li>⚡ Enhanced Layer-2/Layer-3 performance</li>
-                            <li>🎯 Guild system & tournaments</li>
-                            <li>📊 2M+ users, $500M+ TVL target</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">2028 - Full Ecosystem 🌍</div>
-                        <h3 style="margin-bottom: 15px;">Complete Independence & Global Reach</h3>
-                        <ul style="color: #94a3b8; line-height: 2;">
-                            <li>🌐 Fully independent multi-layer ecosystem</li>
-                            <li>🌐 100+ active validators across all layers</li>
-                            <li>🌐 Native stablecoin (KBT-USD) launch</li>
-                            <li>🌐 On-chain governance (complete DAO control)</li>
-                            <li>🌐 Mobile apps (iOS/Android) with full features</li>
-                            <li>🌐 Institutional partnerships & integration</li>
-                            <li>🌐 Cross-border payment corridors</li>
-                            <li>📊 10M+ users worldwide</li>
-                            <li>💎 $2B+ market cap target</li>
-                            <li>🏆 Top 50 cryptocurrency ranking</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>KBT Ecosystem</h3>
-                    <p style="color: #94a3b8; margin-top: 15px;">Next-generation blockchain platform for DeFi, NFTs, Gaming, and Real-World Assets.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">𝕏</a>
-                        <a href="#" class="social-icon">📱</a>
-                        <a href="#" class="social-icon">💬</a>
-                        <a href="#" class="social-icon">🎮</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Products</h3>
-                    <a href="presale.html">Presale</a>
-                    <a href="kbtpay.html">KBTPay Gateway</a>
-                    <a href="merchant-dashboard.html">Merchant Dashboard</a>
-                    <a href="dex.html">KBT DEX</a>
-                    <a href="nft-marketplace.html">NFT Marketplace</a>
-                    <a href="launchpad.html">Launchpad</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Resources</h3>
-                    <a href="whitepaper.html">Whitepaper</a>
-                    <a href="documentation.html">Documentation</a>
-                    <a href="audit.html">Audit Reports</a>
-                    <a href="#">Brand Assets</a>
-                    <a href="#">Developer Docs</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Contract Addresses</h3>
-                    <p style="color: #94a3b8; font-size: 12px; margin-top: 10px;">
-                        <strong>KBT Token:</strong><br>
-                        0x2753...6D81
+            <h2 class="section-title">Multi-Layer Testing Strategy</h2>
+            <p class="section-subtitle">We're testing on both Polygon L3 and Arbitrum Orbit L3 to determine the best mainnet deployment</p>
+            
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <div style="background: rgba(15, 23, 42, 0.8); padding: 40px; border-radius: 16px; border: 1px solid rgba(99, 102, 241, 0.2); margin-bottom: 30px;">
+                    <h3 style="font-size: 24px; margin-bottom: 20px; color: var(--primary);">🔬 Our Testing Approach</h3>
+                    <p style="color: #94a3b8; line-height: 1.8; margin-bottom: 20px;">
+                        Rather than rushing to mainnet, we're conducting comprehensive testing on both layer architectures. This data-driven approach ensures we launch on the most suitable infrastructure for payment use cases.
                     </p>
-                    <p style="color: #94a3b8; font-size: 12px; margin-top: 10px;">
-                        <strong>Presale:</strong><br>
-                        0xF71e...B574
-                    </p>
-                    <p style="color: #94a3b8; font-size: 12px; margin-top: 10px;">
-                        <strong>KBTPay:</strong><br>
-                        0xe5Af...Cd70
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        <strong style="color: var(--light);">Why Two Testnets?</strong> Each layer has unique advantages. By testing both simultaneously, we can make an informed decision based on real performance data, not assumptions.
                     </p>
                 </div>
-            </div>
-            <div class="copyright">
-                <p>© 2025 KBT Ecosystem. All rights reserved. | Built on Ethereum, Polygon, BSC & Arbitrum</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+                    <div style="background: rgba(139, 92, 246, 0.1); padding: 30px; border-radius: 12px; border: 2px solid rgba(139, 92, 246, 0.3);">
+                        <h4 style="font-size: 20px; margin-bottom: 15px; color: #c4b5fd;">🟣 Polygon L3 (Amoy)</h4>
+                        <ul style="list-style: none; color: #94a3b8; line-height: 2;">
+                            <li>✓ Large developer ecosystem</li>
+                            <li>✓ Proven zkEVM technology</li>
+                            <li>✓ Strong community support</li>
+                            <li>✓ Established partnerships</li>
+                            <li>⏳ Testing gas efficiency</li>
+                            <li>⏳ Measuring transaction finality</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(59, 130, 246, 0.1); padding: 30px; border-radius: 12px; border: 2px solid rgba(59, 130, 246, 0.3);">
+                        <h4 style="font-size: 20px; margin-bottom: 15px; color: #93c5fd;">🔵 Arbitrum Orbit L3</h4>
+                        <ul style="list-style: none; color: #94a3b8; line-height: 2;">
+                            <li>✓ Ultra-low gas fees</li>
+                            <li>✓ High transaction throughput</li>
+                            <li>✓ Optimistic rollup stability</li>
+                            <li>✓ Customizable parameters</li>
+                            <li>⏳ Benchmarking performance</li>
+                            <li>⏳ Stress testing capacity</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.8); padding: 35px; border-radius: 16px; border:<function_calls>
+<invoke name="artifacts">
+<parameter name="old_str">                <div style="background: rgba(15, 23, 42, 0.8); padding: 35px; border-radius: 16px; border:</parameter>
+<parameter name="new_str">                <div style="background: rgba(15, 23, 42, 0.8); padding: 35px; border-radius: 16px; border: 1px solid rgba(99, 102, 241, 0.2);">
+<h3 style="font-size: 22px; margin-bottom: 20px; color: var(--primary);">📊 Evaluation Criteria</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+<div style="text-align: center; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 10px;">⚡</div>
+<div style="color: #94a3b8; font-size: 14px;">Transaction Speed</div>
+</div>
+<div style="text-align: center; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 10px;">💰</div>
+<div style="color: #94a3b8; font-size: 14px;">Gas Cost Efficiency</div>
+</div>
+<div style="text-align: center; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 10px;">🛡️</div>
+<div style="color: #94a3b8; font-size: 14px;">Network Stability</div>
+</div>
+<div style="text-align: center; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 10px;">📈</div>
+<div style="color: #94a3b8; font-size: 14px;">Scalability Potential</div>
+</div>
+<div style="text-align: center; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 10px;">🔧</div>
+<div style="color: #94a3b8; font-size: 14px;">Developer Tools</div>
+</div>
+<div style="text-align: center; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+<div style="font-size: 32px; margin-bottom: 10px;">🌐</div>
+<div style="color: #94a3b8; font-size: 14px;">Ecosystem Support</div>
+</div>
+</div>
+</div><div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%); padding: 30px; border-radius: 12px; margin-top: 30px; text-align: center;">
+                <h3 style="font-size: 22px; margin-bottom: 15px;">🎯 Mainnet Decision (Q2 2026)</h3>
+                <p style="color: #cbd5e1; line-height: 1.8; max-width: 700px; margin: 0 auto;">
+                    After 3-4 months of rigorous testing and performance analysis, we will select <strong style="color: var(--light);">ONE layer</strong> for mainnet launch in Q3 2026. The decision will be <strong style="color: var(--light);">data-driven</strong> and focused on delivering the best user experience for payment transactions.
+                </p>
+                <p style="color: #94a3b8; margin-top: 15px; font-size: 14px;">
+                    The second layer may be deployed in 2027 if there is sufficient demand and use cases warrant multi-chain presence.
+                </p>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
+
+<section id="features" class="features">
+    <div class="container">
+        <h2 class="section-title">What We're Building</h2>
+        <p class="section-subtitle">A focused approach to multi-layer blockchain infrastructure with real utility</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Multi-Layer Architecture</h3>
+                <p>KBT Chain L3 deployed on both Polygon Amoy and Arbitrum Orbit testnets. Focused on scalability, low fees, and fast transactions for payment use cases.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>KBTPay Gateway</h3>
+                <p>Crypto payment solution for merchants. Accept ETH, USDT, USDC with instant settlement. Currently in beta testing on Sepolia testnet.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Low Transaction Costs</h3>
+                <p>Layer 3 architecture designed to achieve sub-cent transaction fees. Targeting $0.001 average gas cost for payment transactions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure Smart Contracts</h3>
+                <p>All contracts built with OpenZeppelin standards. Professional security audit planned before mainnet launch to ensure fund safety.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Cross-Chain Ready</h3>
+                <p>Infrastructure designed for multi-chain deployment. Future expansion to BSC and other EVM chains based on demand and testing results.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Transparent Development</h3>
+                <p>Open-source smart contracts, regular progress updates, and community-driven feedback. All deployment addresses publicly verifiable.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="kbtpay" class="kbtpay-section">
+    <div class="container">
+        <h2 class="section-title">KBTPay - Crypto Payment Gateway</h2>
+        <p class="section-subtitle">Currently in beta testing. Merchant integration available Q3 2026</p>
+        <div class="kbtpay-grid">
+            <div class="kbtpay-features">
+                <div class="kbtpay-feature">
+                    <h3>💰 Low Transaction Fees</h3>
+                    <p>Target 0.5% per transaction (vs 2-3% traditional payment processors). Layer 3 deployment enables cost-effective payment processing.</p>
+                </div>
+                <div class="kbtpay-feature">
+                    <h3>⚡ Fast Settlement</h3>
+                    <p>Smart contract automation enables near-instant settlement. No manual payment processing or delays.</p>
+                </div>
+                <div class="kbtpay-feature">
+                    <h3>🔐 Secure Escrow</h3>
+                    <p>Built-in escrow system for P2P transactions. Funds protected until delivery confirmation or timeout.</p>
+                </div>
+                <div class="kbtpay-feature">
+                    <h3>📊 Simple Integration</h3>
+                    <p>RESTful API for easy merchant integration. Documentation and testing tools available for early adopters.</p>
+                </div>
+                <div class="kbtpay-feature">
+                    <h3>💱 Multi-Currency</h3>
+                    <p>Support for ETH, USDT, USDC with Chainlink price oracles. More tokens to be added based on merchant demand.</p>
+                </div>
+                <div class="kbtpay-feature">
+                    <h3>📈 Beta Program</h3>
+                    <p>Join our beta testing program. Early merchant partners get priority support and reduced fees for first year.</p>
+                </div>
+            </div>
+            <div class="kbtpay-visual">
+                <div class="payment-icon">💳</div>
+                <h3 style="font-size: 28px; margin-bottom: 18px;">Payment Infrastructure</h3>
+                <p style="color: #94a3b8; font-size: 16px; line-height: 1.7;">Building a reliable crypto payment solution for small and medium businesses. Focus on simplicity, security, and low costs.</p>
+                <div style="margin-top: 35px;">
+                    <div style="background: rgba(99, 102, 241, 0.15); padding: 18px; border-radius: 10px; margin-bottom: 12px;">
+                        <strong>Current Phase:</strong> Beta Testing on Sepolia
+                    </div>
+                    <div style="background: rgba(236, 72, 153, 0.15); padding: 18px; border-radius: 10px; margin-bottom: 12px;">
+                        <strong>Mainnet Launch:</strong> Q3 2026 (planned)
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.15); padding: 18px; border-radius: 10px;">
+                        <strong>Beta Merchants:</strong> Applications Open Soon
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="roadmap" class="roadmap">
+    <div class="container">
+        <h2 class="section-title">Development Roadmap</h2>
+        <p class="section-subtitle">Realistic timeline based on current progress and rigorous testing requirements</p>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot">✓</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Q4 2025 - COMPLETED ✅</div>
+                    <h3>Foundation & Multi-Layer Testnet Deployment</h3>
+                    <ul>
+                        <li>✅ KBT Token deployed on Sepolia testnet</li>
+                        <li>✅ Multi-currency presale contract (ETH, USDT, USDC) deployed</li>
+                        <li>✅ KBTPay payment gateway smart contract deployed</li>
+                        <li>✅ KBT Chain L3 deployed on Polygon Amoy testnet</li>
+                        <li>✅ KBT Chain L3 deployed on Arbitrum Sepolia (Orbit)</li>
+                        <li>✅ Initial functionality testing completed</li>
+                        <li>✅ Block production active on both L3 testnets</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">🔄</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Q1 2026 - IN PROGRESS 🔄</div>
+                    <h3>Comprehensive Testing & Performance Analysis</h3>
+                    <ul>
+                        <li>🔄 Rigorous multi-layer testing across all deployments</li>
+                        <li>🔄 Gas fee optimization and benchmarking</li>
+                        <li>🔄 Transaction speed and finality measurements</li>
+                        <li>🔄 Network stability stress testing</li>
+                        <li>🔄 Bug identification and contract optimizations</li>
+                        <li>📅 Community beta testing program launch</li>
+                        <li>📅 Documentation and API finalization</li>
+                        <li>📅 Security audit preparation and scheduling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">📊</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Q2 2026 - MAINNET DECISION 📊</div>
+                    <h3>Security Audits & Layer Selection</h3>
+                    <ul>
+                        <li>🔒 Professional smart contract audits (CertiK/Hacken)</li>
+                        <li>📊 Publish comprehensive testing results comparison</li>
+                        <li>🎯 Select optimal layer for mainnet (Polygon L3 OR Arbitrum Orbit)</li>
+                        <li>🛠️ Address security findings and optimize contracts</li>
+                        <li>📄 Final documentation and legal compliance review</li>
+                        <li>🤝 Onboard 5-10 beta merchants for KBTPay</li>
+                        <li>📢 Marketing campaign and community building</li>
+                        <li>💼 Prepare liquidity and exchange listings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">🚀</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Q3 2026 - MAINNET LAUNCH 🚀</div>
+                    <h3>Production Deployment on Selected Layer</h3>
+                    <ul>
+                        <li>🎉 KBT Token mainnet deployment (Ethereum/Polygon)</li>
+                        <li>🎉 KBT Chain L3 mainnet launch on chosen layer</li>
+                        <li>🎉 KBTPay mainnet with 10-20 merchant partners</li>
+                        <li>💱 DEX listings (Uniswap, QuickSwap, PancakeSwap)</li>
+                        <li>💰 Staking program launch (5-8% realistic APY)</li>
+                        <li>🏦 First CEX listing applications (Gate.io/MEXC target)</li>
+                        <li>📱 Web wallet with multi-chain support</li>
+                        <li>🔗 Cross-chain bridge infrastructure (if applicable)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">📈</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Q4 2026 - ECOSYSTEM EXPANSION 📈</div>
+                    <h3>Scale Core Products & Add Features</h3>
+                    <ul>
+                        <li>📊 Scale KBTPay to 50-100 active merchants</li>
+                        <li>💳 Add more payment currencies (based on demand)</li>
+                        <li>📱 Mobile wallet application (iOS/Android)</li>
+                        <li>🌉 Cross-chain bridge deployment (if dual-layer)</li>
+                        <li>🏆 First major CEX listing achieved</li>
+                        <li>🗳️ DAO governance framework preparation</li>
+                        <li>📈 $10M-$20M market cap target</li>
+                        <li>👥 50,000-100,000 token holders goal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">🌟</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Q1-Q2 2027 - DEFI INFRASTRUCTURE 💱</div>
+                    <h3>Launch DEX & Trading Features</h3>
+                    <ul>
+                        <li>💱 KBT DEX launch (Uniswap V2 fork with improvements)</li>
+                        <li>🌾 Yield farming and liquidity mining programs</li>
+                        <li>🔄 P2P fiat exchange with escrow (UPI, Bank Transfer)</li>
+                        <li>📊 Advanced trading features (limit orders, charts)</li>
+                        <li>🤝 Consider second layer deployment (if demand exists)</li>
+                        <li>🗳️ DAO governance goes live (community voting)</li>
+                        <li>💼 Institutional partnership discussions</li>
+                        <li>📈 100,000+ active users target</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">🎨</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Q3-Q4 2027 - NFT & ADVANCED FEATURES 🎨</div>
+                    <h3>Expand Ecosystem Offerings</h3>
+                    <ul>
+                        <li>🎨 NFT Marketplace launch (if market demand exists)</li>
+                        <li>🚀 Launchpad platform for vetted projects</li>
+                        <li>🤖 AI-powered portfolio analytics (beta)</li>
+                        <li>🌍 Expand to additional EVM chains (BSC, Avalanche)</li>
+                        <li>📱 Enhanced mobile app features</li>
+                        <li>🏦 Additional CEX listings (Tier 2 exchanges)</li>
+                        <li>💎 Premium features for KBT stakers</li>
+                        <li>📈 $50M+ market cap milestone</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot">🌍</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2028 & BEYOND - SUSTAINABLE GROWTH 🌍</div>
+                    <h3>Mature Ecosystem & Global Expansion</h3>
+                    <ul>
+                        <li>🌐 Fully decentralized DAO governance</li>
+                        <li>🏦 Partnerships with payment processors</li>
+                        <li>💼 Enterprise merchant integrations</li>
+                        <li>🔗 Native stablecoin (KBT-USD) consideration</li>
+                        <li>🎮 Gaming integrations (if viable)</li>
+                        <li>🌍 International expansion (EU, Asia markets)</li>
+                        <li>📊 500,000+ users worldwide</li>
+                        <li>💎 Sustainable revenue model established</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; padding: 30px; background: rgba(99, 102, 241, 0.1); border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto; border: 1px solid rgba(99, 102, 241, 0.3);">
+            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 20px;">⚠️ Important Note About This Roadmap</h3>
+            <p style="color: #cbd5e1; font-size: 15px; line-height: 1.8;">
+                This roadmap is subject to change based on testing results, market conditions, regulatory requirements, and community feedback. We prioritize <strong style="color: var(--light);">security and proper development</strong> over rushing features to market. Dates are estimates and may be adjusted as the project evolves. We commit to transparency and will provide regular updates on our progress.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="disclaimer">
+    <div class="container">
+        <div class="disclaimer-content">
+            <h2>⚠️ Important Risk Disclosure</h2>
+            <p style="margin-bottom: 15px;">
+                <strong>This project is in early development stage.</strong> All smart contracts are currently deployed on testnets and have not undergone professional security audits. Mainnet launch is planned for Q3 2026 pending successful testing and audit completion.
+            </p>
+            <p style="margin-bottom: 15px;">
+                <strong>Investment Risks:</strong> Cryptocurrency investments carry high risk. There is no guarantee of returns, token value appreciation, or project success. Market conditions, technical challenges, and regulatory changes may impact development timeline and outcomes.
+            </p>
+            <p style="margin-bottom: 15px;">
+                <strong>No Promises:</strong> We do not guarantee specific APY percentages, market capitalization targets, or user adoption numbers. All projections are estimates based on ideal conditions and may not materialize.
+            </p>
+            <p>
+                <strong>Do Your Research:</strong> Please review our smart contracts, understand the technology, and only invest what you can afford to lose. This is not financial advice.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 60px 0; background: rgba(15, 23, 42, 0.5);">
+    <div class="container">
+        <h2 class="section-title">Quick Access</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
+            <a href="presale.html" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 12px; text-align: center; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🚀</div>
+                    <h3 style="color: white; margin-bottom: 8px;">Presale Portal</h3>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 14px;">Buy KBT tokens with ETH, USDT, USDC</p>
+                </div>
+            </a>
+
+            <a href="kbtpay.html" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 25px; border-radius: 12px; text-align: center; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 40px; margin-bottom: 10px;">💳</div>
+                    <h3 style="color: white; margin-bottom: 8px;">KBTPay Gateway</h3>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 14px;">Payment solution for merchants</p>
+                </div>
+            </a>
+
+            <a href="merchant-dashboard.html" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 25px; border-radius: 12px; text-align: center; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 40px; margin-bottom: 10px;">📊</div>
+                    <h3 style="color: white; margin-bottom: 8px;">Merchant Dashboard</h3>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 14px;">Manage payments & analytics</p>
+                </div>
+            </a>
+
+            <a href="whitepaper.html" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 25px; border-radius: 12px; text-align: center; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 40px; margin-bottom: 10px;">📄</div>
+                    <h3 style="color: #1e293b; margin-bottom: 8px;">Whitepaper</h3>
+                    <p style="color: #475569; font-size: 14px;">Technical documentation</p>
+                </div>
+            </a>
+
+            <a href="documentation.html" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 25px; border-radius: 12px; text-align: center; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 40px; margin-bottom: 10px;">📚</div>
+                    <h3 style="color: #1e293b; margin-bottom: 8px;">Documentation</h3>
+                    <p style="color: #475569; font-size: 14px;">Developer guides & API docs</p>
+                </div>
+            </a>
+
+            <a href="audit.html" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 25px; border-radius: 12px; text-align: center; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+                    <h3 style="color: #1e293b; margin-bottom: 8px;">Audit Reports</h3>
+                    <p style="color: #475569; font-size: 14px;">Security audits & certifications</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>KBT Ecosystem</h3>
+                <p style="color: #94a3b8; margin-top: 12px; font-size: 14px;">Building multi-layer blockchain payment infrastructure. Currently in testnet phase with mainnet launch planned for 2026.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">📱</a>
+                    <a href="#" class="social-icon">💬</a>
+                    <a href="#" class="social-icon">📧</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Products</h3>
+                <a href="presale.html">🚀 Join Presale</a>
+                <a href="kbtpay.html">💳 KBTPay Gateway</a>
+                <a href="merchant-dashboard.html">📊 Merchant Dashboard</a>
+                <a href="dex.html">💱 DEX (Coming Soon)</a>
+                <a href="nft-marketplace.html">🎨 NFT Marketplace (Planned)</a>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <a href="whitepaper.html">📄 Whitepaper</a>
+                <a href="documentation.html">📚 Documentation</a>
+                <a href="audit.html">🔒 Audit Reports</a>
+                <a href="#">💻 GitHub Repository</a>
+                <a href="#">📖 API Docs</a>
+            </div>
+            <div class="footer-section">
+                <h3>Testnet Contracts</h3>
+                <p style="color: #94a3b8; font-size: 12px; margin-top: 8px; line-height: 1.5;">
+                    <strong style="color: var(--primary);">KBT Token (Sepolia):</strong><br>
+                    <span style="font-family: monospace;">0x2753...6D81</span>
+                </p>
+                <p style="color: #94a3b8; font-size: 12px; margin-top: 12px; line-height: 1.5;">
+                    <strong style="color: var(--primary);">Presale (Sepolia):</strong><br>
+                    <span style="font-family: monospace;">0xF71e...B574</span>
+                </p>
+                <p style="color: #94a3b8; font-size: 12px; margin-top: 12px; line-height: 1.5;">
+                    <strong style="color: var(--primary);">KBTPay (Sepolia):</strong><br>
+                    <span style="font-family: monospace;">0xe5Af...Cd70</span>
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+	    <p>© Contact Us- kivebit55@gmail.com</p>
+            <p>© 2025 KBT Ecosystem. All rights reserved. | Testnet Phase - Mainnet Launch Q3 2026</p>
+            <p style="margin-top: 8px; font-size: 12px;">Deployed on Sepolia, Polygon Amoy & Arbitrum Sepolia Testnets</p>
+        </div>
+    </div>
+</footer>
+<!-- Visitor Counter -->
+<a href="https://hits.sh/">
+  <img src="https://hits.sh/kivebit.github.io/kbt/.svg?style=flat-square&label=VISITORS&color=ff5555" alt="Visitors">
+</a>
 
 </body>
 </html>
